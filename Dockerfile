@@ -43,6 +43,7 @@ RUN apt-get update \
    && apt-get install -y libpng12-dev libjpeg-dev \
        && docker-php-ext-configure gd --with-jpeg-dir=/usr/lib \
        && docker-php-ext-install gd \
+       && docker-php-ext-install bcmath \
    && apt-get install -y zlib1g-dev \
        && docker-php-ext-install zip \
    && rm -rf /var/lib/apt/lists/*
