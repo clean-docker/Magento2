@@ -59,7 +59,7 @@ RUN mkdir ~/.dev-alias \
     && mv ~/.dev-alias/dev-alias-master/* ~/.dev-alias \
     && rm -rf ~/.dev-alias/dev-alias-master \
     && rm ~/.dev-alias/master.zip \
-    && echo "source ~/.dev-alias/alias.sh" >> ~/.bashrc
+    && echo "alias n98='magerun2'; source ~/.dev-alias/alias.sh" >> ~/.bashrc
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
