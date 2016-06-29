@@ -1,4 +1,4 @@
-FROM php:7.0.0RC7-apache
+FROM php:7.0.6-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcg_stz@hotmail.com>
 
