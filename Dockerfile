@@ -1,4 +1,4 @@
-FROM php:7.0.6-apache
+FROM php:7.0.8-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcg_stz@hotmail.com>
 
@@ -33,6 +33,8 @@ RUN apt-get update \
    && docker-php-ext-install mbstring \
    && docker-php-ext-install pdo_mysql \
    && apt-get install -y libxml2-dev \
+   && apt-get install -y libedit-dev \
+   && apt-get install -y libedit2 \
        && docker-php-ext-install soap \
    && apt-get install -y libmcrypt4 libmcrypt-dev \
        && docker-php-ext-install mcrypt \
@@ -46,6 +48,7 @@ RUN apt-get update \
        && docker-php-ext-install bcmath \
    && apt-get install -y zlib1g-dev \
        && docker-php-ext-install zip \
+       && docker-php-ext-install json \
    && rm -rf /var/lib/apt/lists/*
 
 # ----> Configuring system
