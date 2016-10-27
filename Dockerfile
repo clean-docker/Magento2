@@ -9,8 +9,8 @@ RUN apt-get update \
 	software-properties-common \
 	python-software-properties
 
-RUN apt-get update && \
-	apt-get upgrade -y
+RUN apt-get update \
+	&& apt-get upgrade -y
 
 RUN apt-get -y install apt-utils \
 	&& apt-get -y install wget \
@@ -51,6 +51,13 @@ RUN apt-get update \
 	&& docker-php-ext-install zip \
 	&& docker-php-ext-install json \
 	&& rm -rf /var/lib/apt/lists/*
+
+# Install oAuth
+RUN apt-get update \
+	&& apt-get install libpcre3 libpcre3-dev -y \
+	&& apt-get install php-pear -y \
+	&& pecl install oauth \
+	&& echo "extension=oauth.so" > /usr/local/etc/php/conf.d/docker-php-ext-oauth.ini
 
 # ----> Configuring system
 RUN chmod 777 -R /var/www/html
