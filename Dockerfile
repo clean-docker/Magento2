@@ -10,37 +10,38 @@ RUN apt-get update \
 	python-software-properties
 
 RUN apt-get update \
-	  && apt-get install -y \
-	    libfreetype6-dev \
-	    libicu-dev \
-	    libjpeg62-turbo-dev \
-	    libmcrypt-dev \
-	    libpng12-dev \
-	    libxslt1-dev \
-			apt-utils \
-	    git \
-	    vim \
-	    wget \
-			curl \
-	    lynx \
-	    psmisc \
-			unzip \
-			tar \
-	  && apt-get clean
+	&& apt-get install -y \
+	libfreetype6-dev \
+	libicu-dev \
+	libjpeg62-turbo-dev \
+	libmcrypt-dev \
+	libpng12-dev \
+	libxslt1-dev \
+	apt-utils \
+	git \
+	vim \
+	wget \
+	curl \
+	lynx \
+	psmisc \
+	unzip \
+	tar \
+	&& apt-get clean
 
 # Install Magento Dependencies
-
-RUN docker-php-ext-install \
-		opcache \
-    gd \
-		bcmath \
-    intl \
-    mbstring \
-    mcrypt \
-    pdo_mysql \
-		soap \
-    xsl \
-    zip
+RUN docker-php-ext-configure \
+	gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
+	docker-php-ext-install \
+	opcache \
+	gd \
+	bcmath \
+	intl \
+	mbstring \
+	mcrypt \
+	pdo_mysql \
+	soap \
+	xsl \
+	zip
 
 # Installing Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -57,9 +58,9 @@ RUN apt-get update \
 # Configuring system
 
 RUN chmod 777 -R /var/www/html \
-		&& usermod -u 1000 www-data \
- 		&& a2enmod rewrite \
-		&& a2enmod headers
+	&& usermod -u 1000 www-data \
+ 	&& a2enmod rewrite \
+	&& a2enmod headers
 
 RUN mkdir ~/.dev-alias \
 	&& wget https://github.com/rafaelstz/dev-alias/archive/master.zip -P ~/.dev-alias \
