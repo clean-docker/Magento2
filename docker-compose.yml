@@ -7,6 +7,7 @@ services:
         - "80:80"
     depends_on:
       - db
+      - dbdata
     links:
       - db
     volumes:
@@ -17,7 +18,7 @@ services:
   db:
     image: mariadb
     ports:
-      - "3306:3306"
+      - "3300:3306"
     volumes_from:
       - dbdata
     environment:
