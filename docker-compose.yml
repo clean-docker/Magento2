@@ -2,7 +2,7 @@ version: '2'
 services:
 
   apache:
-    image: fballiano/magento2-apache-php
+    image: rafaelcgstz/magento2
     ports:
         - "80:80"
     depends_on:
