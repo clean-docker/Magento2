@@ -44,6 +44,12 @@ In your terminal out of the container run this command.
 mysql -u root -proot -h 0.0.0.0
 ```
 
+To know what is the IP to use in the Magento 2 installation (Database Server Host), you can use this command out the container.
+
+```
+docker inspect m2docker_db_1 | grep IPAddress
+```
+
 ### License
 
 MIT © 2017 [Rafael Corrêa Gomes](https://github.com/rafaelstz/) and contributors.
