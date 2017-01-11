@@ -1,6 +1,32 @@
-php:
-  build: .
-  ports:
-   - "80:80"
-  volumes:
-   - /var/www/html:/var/www/html
+version: '2'
+services:
+
+  apache:
+    image: fballiano/magento2-apache-php
+    ports:
+        - "80:80"
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - /var/www/html:/var/www/html
+      # Example of my MacOS config
+      # - /Users/rafaelcgstz/Public/Develop:/var/www/html
+
+  db:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    volumes_from:
+      - dbdata
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=magento2
+      - MYSQL_USER=magento2
+      - MYSQL_PASSWORD=magento2
+
+  dbdata:
+    image: tianon/true
+    volumes:
+      - /var/lib/mysql
