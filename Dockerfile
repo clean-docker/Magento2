@@ -31,6 +31,7 @@ RUN apt-get update \
 # Install Magento Dependencies
 
 RUN docker-php-ext-install \
+		opcache \
     gd \
 		bcmath \
     intl \
@@ -39,8 +40,7 @@ RUN docker-php-ext-install \
     pdo_mysql \
 		soap \
     xsl \
-    zip \
-    opcache
+    zip
 
 # Installing Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -69,7 +69,7 @@ RUN mkdir ~/.dev-alias \
 	&& rm ~/.dev-alias/master.zip \
 	&& echo "alias n98='magerun2';alias magerun='magerun2'; source ~/.dev-alias/alias.sh" >> ~/.bashrc
 
-ADD conf/php.ini /usr/local/etc/php/
+ADD conf/php.ini /usr/local/etc/php/conf.d/999-rafaelcgstz.ini
 ADD conf/index.php /var/www/html/
 # COPY ./bin/* /usr/local/bin/
 
