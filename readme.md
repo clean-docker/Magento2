@@ -16,11 +16,27 @@ docker-compose up -d ;
 docker ps
 ```
 
-After start your containers you can utilize these commands below inside of your containers.
+### !Important
+
+Default folder in your machine is `/var/www/html`, if you use **MacOS** please change this folder in your docker-compose cloned file.
+
+### Access the MySQL
+
+In your terminal out of the container run this command.
+
+```
+mysql -u root -proot -h 0.0.0.0
+```
+
+### Access the container Docker
+
+To access in you browser you can use http://localhost ( I recommend change your /etc/hosts ).
+
+```
+docker exec -ti m2docker_apache_1 bash
+```
 
 ### Install Magento 2
-
-Access you folder `/var/www/html` and run this command:
 
 ```
 composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento2

@@ -70,6 +70,7 @@ RUN mkdir ~/.dev-alias \
 	&& echo "alias n98='magerun2';alias magerun='magerun2'; source ~/.dev-alias/alias.sh" >> ~/.bashrc
 
 ADD conf/php.ini /usr/local/etc/php/
+ADD conf/index.php /var/www/html/
 # COPY ./bin/* /usr/local/bin/
 
 VOLUME /var/www/html
