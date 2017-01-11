@@ -2,7 +2,7 @@ FROM php:7.0.8-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcg_stz@hotmail.com>
 
-# Installing base components
+# Install Dependencies
 
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -10,59 +10,59 @@ RUN apt-get update \
 	python-software-properties
 
 RUN apt-get update \
-	&& apt-get upgrade -y
+	  && apt-get install -y \
+	    libfreetype6-dev \
+	    libicu-dev \
+	    libjpeg62-turbo-dev \
+	    libmcrypt-dev \
+	    libpng12-dev \
+	    libxslt1-dev \
+			apt-utils \
+	    git \
+	    vim \
+	    wget \
+			curl \
+	    lynx \
+	    psmisc \
+			unzip \
+			tar \
+	  && apt-get clean
 
-RUN apt-get -y install apt-utils \
-	&& apt-get -y install wget \
-	&& apt-get -y install curl \
-	&& apt-get -y install unzip \
-	&& apt-get -y install supervisor \
-	&& apt-get -y install g++ \
-	&& apt-get -y install make \
-	&& apt-get -y install mc \
-	&& apt-get -y install vim \
-	&& apt-get -y install tar \
-	&& apt-get -y install gcc \
-	&& apt-get -y install git
+# Install Magento Dependencies
+
+RUN docker-php-ext-configure \
+    gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
+  docker-php-ext-install \
+    gd \
+		bcmath \
+    intl \
+    mbstring \
+    mcrypt \
+    pdo_mysql \
+		soap \
+		libxml2-dev \
+    xsl \
+    zip \
+    opcache
 
 # Installing Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Installing Docker PHP Ext
-RUN apt-get update \
-   	&& docker-php-ext-install mbstring \
-	&& docker-php-ext-install pdo \
-   	&& docker-php-ext-install pdo_mysql \
-   	&& apt-get install -y libxml2-dev \
-   	&& apt-get install -y libedit-dev \
-   	&& apt-get install -y libedit2 \
-	&& docker-php-ext-install soap \
-	&& apt-get install -y libmcrypt4 libmcrypt-dev \
-	&& docker-php-ext-install mcrypt \
-	&& apt-get install -y libxslt-dev \
-	&& docker-php-ext-install xsl \
-	&& apt-get install -y libicu-dev \
-	&& docker-php-ext-install intl \
-	&& apt-get install -y libpng12-dev libjpeg-dev \
-	&& docker-php-ext-configure gd --with-jpeg-dir=/usr/lib \
-       	&& docker-php-ext-install gd \
-	&& docker-php-ext-install bcmath \
-	&& apt-get install -y zlib1g-dev \
-	&& docker-php-ext-install zip \
-	&& docker-php-ext-install json \
-	&& rm -rf /var/lib/apt/lists/*
-
 # Install oAuth
 RUN apt-get update \
-	&& apt-get install libpcre3 libpcre3-dev -y \
-	&& apt-get install php-pear -y \
+	&& apt-get install -y \
+	libpcre3 \
+	libpcre3-dev \
+	php-pear \
 	&& pecl install oauth \
 	&& echo "extension=oauth.so" > /usr/local/etc/php/conf.d/docker-php-ext-oauth.ini
 
-# ----> Configuring system
-RUN chmod 777 -R /var/www/html
-RUN a2enmod rewrite
-RUN a2enmod headers
+# Configuring system
+
+RUN chmod 777 -R /var/www/html \
+		&& usermod -u 1000 www-data \
+ 		&& a2enmod rewrite \
+		&& a2enmod headers
 
 RUN mkdir ~/.dev-alias \
 	&& wget https://github.com/rafaelstz/dev-alias/archive/master.zip -P ~/.dev-alias \
@@ -70,7 +70,10 @@ RUN mkdir ~/.dev-alias \
 	&& mv ~/.dev-alias/dev-alias-master/* ~/.dev-alias \
 	&& rm -rf ~/.dev-alias/dev-alias-master \
 	&& rm ~/.dev-alias/master.zip \
-	&& echo "alias n98='magerun2'; source ~/.dev-alias/alias.sh" >> ~/.bashrc
+	&& echo "alias n98='magerun2';alias magerun='magerun2'; source ~/.dev-alias/alias.sh" >> ~/.bashrc
+
+ADD conf/php.ini /usr/local/etc/php/
+COPY ./bin/* /usr/local/bin/
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
