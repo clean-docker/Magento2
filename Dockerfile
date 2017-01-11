@@ -38,7 +38,6 @@ RUN docker-php-ext-install \
     mcrypt \
     pdo_mysql \
 		soap \
-		libxml2-dev \
     xsl \
     zip \
     opcache
