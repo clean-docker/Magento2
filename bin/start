@@ -1,7 +1,9 @@
 #!/bin/bash
 
-source ~/.bashrc \
-  install-composer \
-  && install-magerun2
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+curl -O https://files.magerun.net/n98-magerun2.phar
+chmod +x ./n98-magerun2.phar
+mkdir -p ~/.dev-alias/tools
+mv ./n98-magerun2.phar ~/.dev-alias/tools
 
 service apache2 start
