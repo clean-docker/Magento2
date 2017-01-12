@@ -71,11 +71,10 @@ RUN mkdir ~/.dev-alias \
 	&& rm ~/.dev-alias/master.zip \
 	&& echo "source ~/.dev-alias/alias.sh;alias n98='magerun2';alias magerun='magerun2';" >> ~/.bashrc
 
-RUN install-composer \
-		&& install-magerun2
-
 ADD conf/php.ini /usr/local/etc/php/conf.d/999-rafaelcgstz.ini
 COPY ./bin/* /usr/local/bin/
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
+
+CMD ["/usr/local/bin/start"]

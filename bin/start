@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source ~/.bashrc \
+  install-composer \
+  && install-magerun2
+
+service apache2 start
