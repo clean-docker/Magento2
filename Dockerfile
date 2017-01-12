@@ -73,6 +73,7 @@ RUN mkdir ~/.dev-alias \
 
 ADD conf/php.ini /usr/local/etc/php/conf.d/999-rafaelcgstz.ini
 COPY ./bin/* /usr/local/bin/
+RUN chmod +x /usr/local/bin/*
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
