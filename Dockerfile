@@ -2,7 +2,7 @@ FROM php:7.0.8-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcg_stz@hotmail.com>
 
-# Install Dependencies
+# Install System Dependencies
 
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -29,6 +29,7 @@ RUN apt-get update \
 	&& apt-get clean
 
 # Install Magento Dependencies
+
 RUN docker-php-ext-configure \
 	gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
 	docker-php-ext-install \
@@ -43,10 +44,8 @@ RUN docker-php-ext-configure \
 	xsl \
 	zip
 
-# Installing Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 # Install oAuth
+
 RUN apt-get update \
 	&& apt-get install -y \
 	libpcre3 \
@@ -62,17 +61,21 @@ RUN chmod 777 -R /var/www/html \
  	&& a2enmod rewrite \
 	&& a2enmod headers
 
+# Install DevAlias
+
 RUN mkdir ~/.dev-alias \
 	&& wget https://github.com/rafaelstz/dev-alias/archive/master.zip -P ~/.dev-alias \
 	&& unzip -qo ~/.dev-alias/master.zip -d ~/.dev-alias \
 	&& mv ~/.dev-alias/dev-alias-master/* ~/.dev-alias \
 	&& rm -rf ~/.dev-alias/dev-alias-master \
 	&& rm ~/.dev-alias/master.zip \
-	&& echo "alias n98='magerun2';alias magerun='magerun2'; source ~/.dev-alias/alias.sh" >> ~/.bashrc
+	&& echo "source ~/.dev-alias/alias.sh;alias n98='magerun2';alias magerun='magerun2';" >> ~/.bashrc
+
+RUN install-composer \
+		&& install-magerun2
 
 ADD conf/php.ini /usr/local/etc/php/conf.d/999-rafaelcgstz.ini
-ADD conf/index.php /var/www/html/
-# COPY ./bin/* /usr/local/bin/
+COPY ./bin/* /usr/local/bin/
 
 VOLUME /var/www/html
 WORKDIR /var/www/html

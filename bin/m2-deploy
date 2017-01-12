@@ -1,0 +1,12 @@
+#!/bin/sh
+
+chmod -R 777 pub/static/ var/ pub/media/ &&
+rm -rf var/view_preprocessed/ var/cache/ var/page_cache/ var/tmp/ var/generation/ pub/static/frontend/ &&
+php -f bin/magento cache:clean &
+php -f bin/magento cache:flush &
+php -f bin/magento indexer:reindex &
+php -f bin/magento setup:upgrade &&
+php -f bin/magento setup:static-content:deploy &&
+php -f bin/magento setup:db-data:upgrade &&
+php -f bin/magento dev:source-theme:deploy &&
+chmod -R 777 pub/static/ pub/media/ var/

@@ -11,7 +11,7 @@ services:
     links:
       - db
     volumes:
-      - /var/www/html:/var/www/html
+      - ./magento2:/var/www/html
       # Example of my MacOS config
       # - /Users/rafaelcgstz/Public/Develop:/var/www/html
 
@@ -19,6 +19,8 @@ services:
     image: mariadb
     ports:
       - "3300:3306"
+    depends_on:
+        - dbdata
     volumes_from:
       - dbdata
     environment:
