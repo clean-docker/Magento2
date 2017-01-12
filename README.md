@@ -1,9 +1,18 @@
-# Magento 2 Docker to Development
+<h1 align="center">
+  <br>
+    <img src="https://cdn.rawgit.com/rafaelstz/magento2-snippets-visualstudio/master/images/icon.png" alt="Magento 2 Docker" width="128" height="128">
+  <br>
+  Magento 2 Docker to Development
+  <br>
+  <br>
+</h1>
 
-Apache 2.4 + PHP 7.0.8 + OPCache + MariaDB + Magerun + DevAlias
+<h4 align="center">Apache 2.4 + PHP 7.0.8 + OPCache + MariaDB + Magerun + DevAlias</h4>
 
-[![Build Status](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)](https://travis-ci.org/clean-docker/Magento2)
-[![Microbadger](https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg)](https://microbadger.com/images/rafaelcgstz/magento2 "Get your own image badge on microbadger.com")
+<p align="center">  
+  <a href="https://travis-ci.org/clean-docker/Magento2"><img src="https://travis-ci.org/clean-docker/Magento2.svg?branch=master" alt="Build Status"></a>       
+  <a href="https://microbadger.com/images/rafaelcgstz/magento2"><img src="https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg" alt="Build Status"></a>   
+</p>
 
 This cluster ready docker-compose infrastructure.
 
