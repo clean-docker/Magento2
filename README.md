@@ -4,7 +4,7 @@
 
 ### Apache 2.4 + PHP 7.0.14 + OPCache + MariaDB + Magerun + DevAlias
 
-![Travis CI](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)
+[![Build Status](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)](https://travis-ci.org/clean-docker/Magento2)
 ![Build Status](https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg)
 
 This cluster ready docker-compose infrastructure.
@@ -43,7 +43,7 @@ composer create-project --repository-url=https://repo.magento.com/ magento/proje
 In your terminal out of the container run this command.
 
 ```
-mysql -u root -proot -h 0.0.0.0 -P 3306
+mysql -u root -proot -h 0.0.0.0 -P 3300
 ```
 
 To know what is the IP to use in the Magento 2 installation (Database Server Host), you can use this command out the container.
