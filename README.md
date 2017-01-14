@@ -20,7 +20,7 @@ docker ps
 
 #### Projects folder
 
-There is a folder with the name **magento2**, this folder is the folder **/var/www/html/** inside your container.
+There is a folder in this project calling **./magento2**, this folder is the folder **/var/www/html/** inside your container, is the folder that you will work on.
 
 #### Access the container Docker
 
@@ -32,16 +32,10 @@ docker exec -ti m2docker_apache_1 bash
 
 #### Install Magento 2
 
-You can access in this URL http://localhost/magento/ after installed with this commands below.
+You can access in this URL http://localhost/magento2/ after installed with this commands below.
 
 ```
-magerun install
-```
-
-OR
-
-```
-composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento
+composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento2
 ```
 
 #### Access the MySQL
@@ -49,7 +43,7 @@ composer create-project --repository-url=https://repo.magento.com/ magento/proje
 In your terminal out of the container run this command.
 
 ```
-mysql -u root -proot -h 0.0.0.0 -P 3300
+mysql -u root -proot -h 0.0.0.0 -P 3306
 ```
 
 To know what is the IP to use in the Magento 2 installation (Database Server Host), you can use this command out the container.

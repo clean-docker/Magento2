@@ -7,29 +7,20 @@ services:
         - "80:80"
     depends_on:
       - db
-      - dbdata
     links:
       - db
     volumes:
       - ./magento2:/var/www/html
       # Example of my MacOS config
       # - /Users/rafaelcgstz/Public/Develop:/var/www/html
+      - ~/.composer/auth.json:/root/.composer/auth.json
 
   db:
     image: mariadb
     ports:
-      - "3300:3306"
-    depends_on:
-        - dbdata
-    volumes_from:
-      - dbdata
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=magento2
       - MYSQL_USER=magento2
       - MYSQL_PASSWORD=magento2
-
-  dbdata:
-    image: tianon/true
-    volumes:
-      - /var/lib/mysql

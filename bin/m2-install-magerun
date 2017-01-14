@@ -1,0 +1,6 @@
+#!/bin/bash
+
+curl -O https://files.magerun.net/n98-magerun2.phar \
+&& chmod +x ./n98-magerun2.phar \
+&& mkdir -p ~/.dev-alias/tools \
+&& mv ./n98-magerun2.phar ~/.dev-alias/tools

@@ -1,4 +1,4 @@
-FROM php:7.0.14-apache
+FROM php:7.0-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcg_stz@hotmail.com>
 
@@ -71,11 +71,13 @@ RUN mkdir ~/.dev-alias \
 	&& rm ~/.dev-alias/master.zip \
 	&& echo "source ~/.dev-alias/alias.sh;alias n98='magerun2';alias magerun='magerun2';" >> ~/.bashrc
 
+# Install Composer
+
+RUN	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+
 ADD conf/php.ini /usr/local/etc/php/conf.d/999-rafaelcgstz.ini
 COPY ./bin/* /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
-
-CMD ["/usr/local/bin/start"]
