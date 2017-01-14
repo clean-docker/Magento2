@@ -12,4 +12,3 @@ before_install:
 
 script:
   - docker-compose up -d
-  - docker exec -ti m2docker_apache_1 bash
