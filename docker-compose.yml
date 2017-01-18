@@ -13,7 +13,7 @@ services:
       - ./magento2:/var/www/html
       # Example of my MacOS config
       # - /Users/rafaelcgstz/Public/Develop:/var/www/html
-      - ~/.composer/auth.json:/root/.composer/auth.json
+      - ~/.composer:/root/.composer
 
   db:
     image: mariadb
