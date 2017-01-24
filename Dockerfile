@@ -7,9 +7,8 @@ MAINTAINER Rafael Corrêa Gomes <rafaelcg_stz@hotmail.com>
 RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	software-properties-common \
-	python-software-properties
-
-RUN apt-get update \
+	python-software-properties \
+	&& apt-get update \
 	&& apt-get install -y \
 	libfreetype6-dev \
 	libicu-dev \
