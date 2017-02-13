@@ -2,7 +2,7 @@
 
 #  Magento 2 Docker to Development
 
-### Apache 2.4 + PHP 7.0.14 + OPCache + MariaDB + Magerun + DevAlias
+### Apache 2.4 + PHP 7.0.15 + OPCache + MariaDB + Magerun + DevAlias
 
 [![Build Status](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)](https://travis-ci.org/clean-docker/Magento2)
 ![Build Status](https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg)
