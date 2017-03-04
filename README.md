@@ -27,7 +27,7 @@ There is a folder in this project calling **./magento2**, this folder is the fol
 To access in you browser you can use http://localhost ( I recommend change your /etc/hosts ).
 
 ```
-docker exec -ti m2docker_apache_1 bash
+docker exec -ti magento2_apache_1 bash
 ```
 
 #### Install Magento 2
@@ -49,7 +49,7 @@ mysql -u root -proot -h 0.0.0.0 -P 3300
 To know what is the IP to use in the Magento 2 installation (Database Server Host), you can use this command out the container.
 
 ```
-docker inspect m2docker_db_1 | grep IPAddress
+docker inspect magento2_db_1 | grep IPAddress
 ```
 
 #### License
