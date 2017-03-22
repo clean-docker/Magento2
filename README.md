@@ -36,6 +36,10 @@ You can access in this URL http://localhost/magento2/ after installed with this 
 
 ```
 composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento2
+cd magento 2
+find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;
+find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;
+chmod u+x bin/magento
 ```
 
 #### Access the MySQL
