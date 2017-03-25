@@ -5,7 +5,7 @@
 ### Apache 2.4 + PHP 7.0.15 + OPCache + MariaDB + Magerun + DevAlias
 
 [![Build Status](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)](https://travis-ci.org/clean-docker/Magento2)
-![Build Status](https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg)
+[![Build Status](https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg)](https://microbadger.com/images/rafaelcgstz/magento2)
 
 This cluster ready docker-compose infrastructure.
 
