@@ -99,6 +99,7 @@ RUN yes | pecl install xdebug && \
 	echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
 
 ADD conf/php.ini /usr/local/etc/php/php.ini
+ADD conf/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
 COPY ./bin/* /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
 
