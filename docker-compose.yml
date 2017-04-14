@@ -14,9 +14,7 @@ services:
     links:
       - db
     volumes:
-      - /var/www/html:/var/www/html
-      # Example of my MacOS config
-      # - /Users/rafaelcgstz/Public/Develop:/var/www/html
+      - ./magento2:/var/www/html
       - ~/.composer:/root/.composer
       - ~/.npm:/root/.npm
       - ~/.nvm:/root/.nvm
