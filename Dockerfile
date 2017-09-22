@@ -103,5 +103,8 @@ ADD conf/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
 COPY ./bin/* /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
 
+#Install Mariadb-client to phpunit tests
+RUN apt-get install -y mariadb-client-10.0
+
 VOLUME /var/www/html
 WORKDIR /var/www/html
