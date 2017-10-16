@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+if [ -z "$1" ]
+  then
+    docker-compose exec --user www-data apache grunt exec
+    docker-compose exec --user www-data apache grunt less
+    docker-compose exec --user www-data apache grunt deploy
+    docker-compose exec --user www-data apache grunt watch
+else
+    docker-compose exec --user www-data apache grunt exec:$@
+    docker-compose exec --user www-data apache grunt less:$@
+    docker-compose exec --user www-data apache grunt watch:$@
+fi
