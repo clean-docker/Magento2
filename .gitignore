@@ -1,2 +1,7 @@
-magento2/*
-!magento2/index.php
+/src
+.DS_Store
+/.idea
+/.docker-sync
+/docker-compose.yml
+/docker-compose-dev.yml
+/docker-sync.yml
