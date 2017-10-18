@@ -11,9 +11,7 @@ else
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml
 fi
 
-echo '=================== Done =================='
-echo ''
-echo '>> You can start using the command ./start'
-echo '>> Inside of your new folder '$1
-echo ''
+chmod u+x ./start
+bash start
+
 echo '=================== Done =================='

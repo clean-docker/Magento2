@@ -15,7 +15,7 @@ This cluster ready docker-compose infrastructure.
 Execute in your terminal, change the *MAGENTO2* to use the name of your project:
 
 ```
-curl -s https://github.com/clean-docker/Magento2/blob/master/init.sh | bash -s MAGENTO2
+curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init.sh | bash -s MAGENTO2
 ```
 
 #### Projects folder
