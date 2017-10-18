@@ -7,29 +7,69 @@ services:
     ports:
         - "80:80" # web
         - "9001:9000" # xdebug
-        - "2222:22" # ssh
-        - "35729:35729" # live reload
+        # - "2222:22" # ssh
+        # - "35729:35729" # live reload
     depends_on:
       - db
     links:
       - db
     volumes:
-      - ./magento2:/var/www/html
-      - ~/.composer:/root/.composer
-      - ~/.npm:/root/.npm
-      - ~/.nvm:/root/.nvm
+      - ./src:/var/www/html
+      - ~/.composer:/var/www/.composer
+      - ~/.npm:/var/www/.npm
+      - ~/.nvm:/var/www/.nvm
     environment:
-      XDEBUG_CONFIG: "remote_host=dev.local"
+      XDEBUG_CONFIG: "remote_host=localhost"
       PHP_IDE_CONFIG: "serverName=Docker"
+      - MAGENTO2_VERSION=2.2
+    networks:
+      - <project_name>-network
 
   db:
     image: mariadb
     ports:
-      - "3300:3306"
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=magento2
-      - MYSQL_USER=magento2
-      - MYSQL_PASSWORD=magento2
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=magento
+      - MYSQL_PASSWORD=magento
     volumes:
-        - /var/lib/mysql # database files
+      - dbdata:/var/lib/mysql # database files
+    networks:
+      - <project_name>-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+     - PMA_HOST=db
+     - PMA_USER=root
+     - PMA_PASSWORD=root
+     - MYSQL_ROOT_PASSWORD=root
+    ports:
+     - 8080:80
+    networks:
+      - <project_name>-network
+
+  redis:
+    image: redis
+    ports:
+     - 6379:6379
+    networks:
+      - <project_name>-network
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - <project_name>-network
+
+networks:
+  <project_name>-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+if [ -f ~/.composer/auth.json ]
+  then
+    cd /var/www/html \;
+    composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:$@ . \;
+    find var vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;
+    find var vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;
+    chmod u+x bin/magento \;
+    ./bin/magento setup:install --base-url=http://localhost/ \
+    		--db-host=db --db-name=magento --db-user=magento --db-password=magento \
+    		--admin-firstname=Magento --admin-lastname=Commerce --admin-email=user@example.com \
+    		--admin-user=admin --admin-password=admin123 --language=en_US \
+    		--currency=USD --timezone=America/Chicago --use-rewrites=1
+else
+    echo "Please create your file ~/.composer/auth.json"
+fi
