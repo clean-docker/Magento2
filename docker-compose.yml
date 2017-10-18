@@ -21,7 +21,6 @@ services:
     environment:
       XDEBUG_CONFIG: "remote_host=localhost"
       PHP_IDE_CONFIG: "serverName=Docker"
-      - MAGENTO2_VERSION=2.2
     networks:
       - <project_name>-network
 

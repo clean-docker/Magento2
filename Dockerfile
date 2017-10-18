@@ -107,10 +107,7 @@ RUN chmod 777 -R /var/www \
    	&& a2enmod rewrite \
   	&& a2enmod headers
 
-RUN install-magento2 {$MAGENTO2_VERSION}
-
-#Install Mariadb-client to phpunit tests
-RUN apt-get install -y mariadb-client-10.0
+RUN install-magento2
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
