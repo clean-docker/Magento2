@@ -1,40 +1,37 @@
 version: '2'
 services:
-
   apache:
-    image: rafaelcgstz/magento2
-    # build: .
+    build: .
     ports:
-        - "80:80" # web
-        - "9001:9000" # xdebug
-        # - "2222:22" # ssh
-        # - "35729:35729" # live reload
+      - "80:80" # web
+      - "9001:9000" # xdebug
+      # - "35729:35729" # live reload
+    volumes:
+      - <project_name>-sync:/var/www/html:nocopy
+      - ~/.composer:/var/www/.composer
+      - ~/.npm:/var/www/.npm
+      # - ~/.nvm:/var/www/.nvm
+    environment:
+      XDEBUG_CONFIG: "remote_host=localhost"
+      PHP_IDE_CONFIG: "serverName=Docker"
     depends_on:
       - db
     links:
       - db
-    volumes:
-      - ./src:/var/www/html
-      - ~/.composer:/var/www/.composer
-      - ~/.npm:/var/www/.npm
-      - ~/.nvm:/var/www/.nvm
-    environment:
-      XDEBUG_CONFIG: "remote_host=localhost"
-      PHP_IDE_CONFIG: "serverName=Docker"
     networks:
       - <project_name>-network
 
   db:
     image: mariadb
     ports:
-      - "3300:3306"
+     - 3300:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=magento
       - MYSQL_USER=magento
       - MYSQL_PASSWORD=magento
     volumes:
-      - dbdata:/var/lib/mysql # database files
+      - dbdata:/var/lib/mysql
     networks:
       - <project_name>-network
 
@@ -53,7 +50,14 @@ services:
   redis:
     image: redis
     ports:
-     - 6379:6379
+     - 6379
+    networks:
+      - <project_name>-network
+
+  redis-session:
+    image: redis
+    ports:
+     - 6379
     networks:
       - <project_name>-network
 
@@ -70,5 +74,7 @@ networks:
     driver: bridge
 
 volumes:
+  <project_name>-sync:
+    external: true
   dbdata:
     driver: local
