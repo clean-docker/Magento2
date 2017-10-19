@@ -100,13 +100,13 @@ RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 
 RUN chmod 777 -R /var/www \
+		&& chown -R www-data:1000 /var/www \
   	&& usermod -u 1000 www-data \
     && chsh -s /bin/bash www-data\
-    && chown -R www-data:1000 /var/www \
    	&& a2enmod rewrite \
   	&& a2enmod headers
 
-RUN setup-cron && install-magento2
+RUN setup-cron
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
