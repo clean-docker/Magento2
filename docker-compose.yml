@@ -14,13 +14,17 @@ services:
     environment:
       XDEBUG_CONFIG: "remote_host=10.254.254.254"
       PHP_IDE_CONFIG: "serverName=Docker"
+    depends_on:
+      - db
+    links:
+      - db
     networks:
       - <project_name>-network
 
   db:
     image: mariadb
     ports:
-     - 3306:3306
+     - 3300:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=magento
@@ -35,8 +39,8 @@ services:
     image: phpmyadmin/phpmyadmin
     environment:
      - PMA_HOST=db
-     - PMA_USER=magento
-     - PMA_PASSWORD=magento
+     - PMA_USER=root
+     - PMA_PASSWORD=root
      - MYSQL_ROOT_PASSWORD=root
     ports:
      - 8080:80
@@ -44,6 +48,13 @@ services:
       - <project_name>-network
 
   redis:
+    image: redis
+    ports:
+     - 6379:6379
+    networks:
+      - <project_name>-network
+
+  redis-session:
     image: redis
     ports:
      - 6379:6379

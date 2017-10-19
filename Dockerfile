@@ -74,7 +74,7 @@ RUN	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install XDebug
 
 RUN yes | pecl install xdebug && \
-	 echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
+	 echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.iniOLD
 
 # Install Mhsendmail
 
@@ -93,10 +93,12 @@ RUN mkdir -p ~/.dev-alias/tools \
 # Configuring system
 
 ADD .docker/config/php.ini /usr/local/etc/php/php.ini
+ADD .docker/config/magento.conf /etc/apache2/sites-available/magento.conf
 ADD .docker/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
 ADD .docker/config/.bashrc /var/www/.bashrc
 COPY .docker/bin/* /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
+RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 
 RUN chmod 777 -R /var/www \
   	&& usermod -u 1000 www-data \
@@ -104,6 +106,9 @@ RUN chmod 777 -R /var/www \
     && chown -R www-data /var/www \
    	&& a2enmod rewrite \
   	&& a2enmod headers
+
+RUN setup-cron \
+		&& install-magento2
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
