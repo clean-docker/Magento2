@@ -27,7 +27,7 @@ Use this [official Docker tutorial](https://docs.docker.com/engine/installation/
 Execute in your terminal, change the *MAGENTO2* to use the name of your project:
 
 ```
-curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s MAGENTO2
+curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s clone MAGENTO2
 ```
 
 ### Panels
