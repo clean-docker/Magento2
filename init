@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+if [ "$2" == "clone" ]; then
+  git clone https://github.com/clean-docker/Magento2.git $1 && cd $1;
+fi
 
-git clone https://github.com/clean-docker/Magento2.git $1 && cd $1;
+sudo chmod u+x ./*
 
 if [ "$(uname)" == "Darwin" ]; then
   git checkout mac \
@@ -11,7 +14,4 @@ else
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml
 fi
 
-chmod u+x ./start
 bash start
-
-echo '=================== Done =================='

@@ -1,2 +1,9 @@
 #!/usr/bin/env bash
-docker-compose up -d
+docker-compose up -d && \
+xdg-open http://localhost/ &
+echo '===================== Done ==================='
+echo 'Please access these links:'
+echo 'Web server: http://localhost/'
+echo 'PHPMyAdmin: http://localhost:8080'
+echo 'Local emails: http://localhost:8025'
+echo '===================== Done ==================='
