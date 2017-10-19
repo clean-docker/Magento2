@@ -106,7 +106,7 @@ RUN chmod 777 -R /var/www \
    	&& a2enmod rewrite \
   	&& a2enmod headers
 
-RUN setup-cron
+RUN setup-cron && install-magento2 auto
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
