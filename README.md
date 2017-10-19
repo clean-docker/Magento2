@@ -30,6 +30,16 @@ Execute in your terminal, change the *MAGENTO2* to use the name of your project:
 curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s MAGENTO2
 ```
 
+### Panels
+
+Enjoy your new panels!
+
+**Web server:** http://localhost/
+
+**PHPMyAdmin:** http://localhost:8080
+
+**Local emails:** http://localhost:8025
+
 ### Features commands
 
 | Commands  | Description  | Options & Examples |
