@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+if [ "$1" != "local" ]; then
+  git clone https://github.com/clean-docker/Magento2.git $1 && cd $1;
+fi
+
+sudo chmod u+x ./*
+
+if [ "$(uname)" == "Darwin" ]; then
+  git checkout mac \
+  && sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
+  && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
+  && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml
+else
+  sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml
+fi
+
+bash start
+
+echo '===================== Done ==================='
+echo 'Please access these links:'
+echo 'Web server: http://localhost/'
+echo 'PHPMyAdmin: http://localhost:8080'
+echo 'Local emails: http://localhost:8025'
+echo '===================== Done ==================='
