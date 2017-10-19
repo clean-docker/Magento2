@@ -2,7 +2,6 @@
 sudo ifconfig lo0 alias 10.254.254.254
 docker-sync start && \
 docker-compose up -d && \
-xdg-open http://localhost/ &
 echo '===================== Done ==================='
 echo 'Please access these links:'
 echo 'Web server: http://localhost/'
