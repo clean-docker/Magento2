@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd /var/www/html;
-if [ -f ~/.composer/auth.json ];then
-  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition
+if [ -f /var/www/.composer/auth.json ];then
+  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
   chmod u+w -R var vendor pub/static pub/media app/etc;
   chmod u+x bin/magento;
   mage setup:install --base-url=http://localhost/ \
@@ -56,5 +56,5 @@ if [ -f ~/.composer/auth.json ];then
   mage deploy:mode:set production
   composer dump-autoload -o
 else
-    echo "<?php phpinfo();" >> index.php
+    echo "<?php phpinfo();" >> ./index.php;
 fi

@@ -15,4 +15,5 @@ else
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
 fi
 
-bash start
+bash start && \
+docker-compose exec --user www-data apache install-magento2
