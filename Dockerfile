@@ -88,7 +88,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install golang-go \
 RUN mkdir -p ~/.dev-alias/tools \
   	&& wget https://files.magerun.net/n98-magerun2.phar \
   	&& chmod +x ./n98-magerun2.phar \
-  	&& cp ./n98-magerun2.phar /usr/local/bin/
+  	&& mv ./n98-magerun2.phar /usr/local/bin/
 
 # Configuring system
 
@@ -103,7 +103,7 @@ RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/m
 RUN chmod 777 -R /var/www \
   	&& usermod -u 1000 www-data \
     && chsh -s /bin/bash www-data\
-    && chown -R www-data /var/www \
+    && chown -R www-data:1000 /var/www \
    	&& a2enmod rewrite \
   	&& a2enmod headers
 

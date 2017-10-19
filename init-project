@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
-&& sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
-&& sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml \
-&& echo '============= Done ============='

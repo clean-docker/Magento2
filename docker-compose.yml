@@ -74,5 +74,7 @@ networks:
     driver: bridge
 
 volumes:
+  <project_name>-sync:
+    external: true
   dbdata:
     driver: local
