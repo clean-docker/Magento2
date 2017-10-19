@@ -1,9 +1,13 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 if [ "$2" == "clone" ]; then
   git clone https://github.com/clean-docker/Magento2.git $1 && cd $1;
 fi
 
 sudo chmod u+x ./*
+
+if [ -f ~/.composer/auth.json ]; then
+  cp ~/.composer/auth.json ./docker/composer/
+fi
 
 if [ "$(uname)" == "Darwin" ]; then
   git checkout mac;

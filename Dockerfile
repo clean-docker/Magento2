@@ -96,6 +96,7 @@ ADD .docker/config/magento.conf /etc/apache2/sites-available/magento.conf
 ADD .docker/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
 ADD .docker/config/.bashrc /var/www/.bashrc
 COPY .docker/bin/* /usr/local/bin/
+COPY .docker/composer/* /root/.composer/
 RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 

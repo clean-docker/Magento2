@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 docker-compose up -d && \
-echo '===================== Done ===================
+echo '
+===================== Done ===================
 
       Created by Rafael Corrêa Gomes
 
@@ -9,4 +10,4 @@ echo '===================== Done ===================
       PHPMyAdmin: http://localhost:8080
       Local emails: http://localhost:8025
 
-      ===================== Done ==================='
+===================== Done ==================='
