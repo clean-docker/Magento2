@@ -95,7 +95,6 @@ ADD .docker/config/php.ini /usr/local/etc/php/php.ini
 ADD .docker/config/magento.conf /etc/apache2/sites-available/magento.conf
 ADD .docker/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
 COPY .docker/bin/* /usr/local/bin/
-COPY .docker/users/* /root/
 COPY .docker/users/* /var/www/
 RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
@@ -107,7 +106,7 @@ RUN chmod 777 -R /var/www \
   	&& a2enmod rewrite \
 		&& a2enmod headers
 
-RUN setup-cron && bash install-magento2
+RUN setup-cron
 
 VOLUME /var/www/html
 WORKDIR /var/www/html

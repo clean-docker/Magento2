@@ -30,7 +30,15 @@ Execute in your terminal, change the *MYMAGENTO2* to use the name of your projec
 curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s MYMAGENTO2 clone
 ```
 
-If you don't have the file `~/.composer/auth.json` with your Magento Keys the CURL above will create a simple **phpInfo** in the root folder, not installing the Magento 2 at this first action.
+If you want install the Magento 2, use like that:
+
+```
+cd MYMAGENTO2
+./shell
+install-magento2
+```
+
+You can specify the version that want install (e.g. `install-magento2 2.2`).
 
 ### Panels
 
