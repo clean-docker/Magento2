@@ -86,8 +86,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install golang-go \
 # Install Magerun 2
 
 RUN wget https://files.magerun.net/n98-magerun2.phar \
-  	&& chmod +x ./n98-magerun2.phar \
-  	&& mv ./n98-magerun2.phar /usr/local/bin/
+	&& chmod +x ./n98-magerun2.phar \
+	&& mv ./n98-magerun2.phar /usr/local/bin/
 
 # Configuring system
 
