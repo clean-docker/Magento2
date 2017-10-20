@@ -86,8 +86,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install golang-go \
 # Install Magerun 2
 
 RUN wget https://files.magerun.net/n98-magerun2.phar \
-  	&& chmod +x ./n98-magerun2.phar \
-  	&& mv ./n98-magerun2.phar /usr/local/bin/
+	&& chmod +x ./n98-magerun2.phar \
+	&& mv ./n98-magerun2.phar /usr/local/bin/
 
 # Configuring system
 
@@ -101,10 +101,10 @@ RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 
 RUN chmod 777 -R /var/www \
-		&& chown -R www-data:1000 /var/www \
-  	&& usermod -u 1000 www-data \
-    && chsh -s /bin/bash www-data\
-   	&& a2enmod rewrite \
+	&& chown -R www-data:1000 /var/www \
+	&& usermod -u 1000 www-data \
+	&& chsh -s /bin/bash www-data\
+	&& a2enmod rewrite \
   	&& a2enmod headers
 
 RUN setup-cron && install-magento2 auto
