@@ -86,25 +86,25 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install golang-go \
 # Install Magerun 2
 
 RUN wget https://files.magerun.net/n98-magerun2.phar \
-  	&& chmod +x ./n98-magerun2.phar \
-  	&& mv ./n98-magerun2.phar /usr/local/bin/
+	&& chmod +x ./n98-magerun2.phar \
+	&& mv ./n98-magerun2.phar /usr/local/bin/
 
 # Configuring system
 
 ADD .docker/config/php.ini /usr/local/etc/php/php.ini
 ADD .docker/config/magento.conf /etc/apache2/sites-available/magento.conf
 ADD .docker/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
-ADD .docker/config/.bashrc /var/www/.bashrc
 COPY .docker/bin/* /usr/local/bin/
+COPY .docker/users/* /var/www/
 RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 
 RUN chmod 777 -R /var/www \
 		&& chown -R www-data:1000 /var/www \
   	&& usermod -u 1000 www-data \
-    && chsh -s /bin/bash www-data\
-   	&& a2enmod rewrite \
-  	&& a2enmod headers
+  	&& chsh -s /bin/bash www-data\
+  	&& a2enmod rewrite \
+		&& a2enmod headers
 
 RUN setup-cron
 

@@ -1,60 +1,59 @@
 #!/usr/bin/env bash
-cd /var/www/html;
-if [ -f /var/www/.composer/auth.json ];then
-  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
-  chmod u+w -R var vendor pub/static pub/media app/etc;
-  chmod u+x bin/magento;
-  mage setup:install --base-url=http://localhost/ \
-      --db-host=db \
-      --db-name=magento \
-      --db-user=magento \
-      --db-password=magento \
-      --admin-firstname=Magento \
-      --admin-lastname=Commerce \
-      --admin-email=user@example.com \
-      --admin-user=admin \
-      --admin-password=admin123 \
-      --language=en_US \
-      --currency=USD \
-      --timezone=America/Chicago \
-      --use-rewrites=1 \
-      --use-sample-data \
-      --backend-frontname=admin \
-      --session-save-redis-host='redis-session' \
-      --session-save-redis-port='6379' \
-      --session-save-redis-password=' ' \
-      --session-save-redis-timeout='2.5' \
-      --session-save-redis-persistent-id=' ' \
-      --session-save-redis-db='2' \
-      --session-save-redis-compression-threshold='2048' \
-      --session-save-redis-compression-lib='gzip' \
-      --session-save-redis-log-level='1' \
-      --session-save-redis-max-concurrency='6' \
-      --session-save-redis-break-after-frontend='5' \
-      --session-save-redis-break-after-adminhtml='30' \
-      --session-save-redis-first-lifetime='600' \
-      --session-save-redis-bot-first-lifetime='60' \
-      --session-save-redis-bot-lifetime='7200' \
-      --session-save-redis-disable-locking='0' \
-      --session-save-redis-min-lifetime='60' \
-      --session-save-redis-max-lifetime='2592000' \
-      --cache-backend-redis-server='redis' \
-      --cache-backend-redis-db='0' \
-      --cache-backend-redis-port='6379' \
-      --page-cache-redis-server='redis' \
-      --page-cache-redis-port='6379' \
-      --page-cache-redis-db='1' \
-      --page-cache-redis-compress-data='0'
-  mage indexer:set-mode schedule
-  cp ~/.composer/auth.json var/composer_home/auth.json
-  mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js
-  npm i grunt; npm i
-  mage sampledata:deploy
-  mage setup:upgrade
-  mage indexer:reindex
-  mage cache:flush
-  mage deploy:mode:set production
-  composer dump-autoload -o
+if [ $@ ]; then
+  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:$1 . ;
 else
-    echo "<?php phpinfo();" >> ./index.php;
+  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
 fi
+chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
+&& chmod u+x ./bin/magento \
+&& php -f ./bin/magento setup:install --base-url=http://localhost/ \
+    --db-host=db \
+    --db-name=magento \
+    --db-user=magento \
+    --db-password=magento \
+    --admin-firstname=Magento \
+    --admin-lastname=Commerce \
+    --admin-email=user@example.com \
+    --admin-user=admin \
+    --admin-password=admin123 \
+    --language=en_US \
+    --currency=USD \
+    --timezone=America/Chicago \
+    --use-rewrites=1 \
+    --use-sample-data \
+    --backend-frontname=admin \
+    --session-save-redis-host='redis-session' \
+    --session-save-redis-port='6379' \
+    --session-save-redis-password=' ' \
+    --session-save-redis-timeout='2.5' \
+    --session-save-redis-persistent-id=' ' \
+    --session-save-redis-db='2' \
+    --session-save-redis-compression-threshold='2048' \
+    --session-save-redis-compression-lib='gzip' \
+    --session-save-redis-log-level='1' \
+    --session-save-redis-max-concurrency='6' \
+    --session-save-redis-break-after-frontend='5' \
+    --session-save-redis-break-after-adminhtml='30' \
+    --session-save-redis-first-lifetime='600' \
+    --session-save-redis-bot-first-lifetime='60' \
+    --session-save-redis-bot-lifetime='7200' \
+    --session-save-redis-disable-locking='0' \
+    --session-save-redis-min-lifetime='60' \
+    --session-save-redis-max-lifetime='2592000' \
+    --cache-backend-redis-server='redis' \
+    --cache-backend-redis-db='0' \
+    --cache-backend-redis-port='6379' \
+    --page-cache-redis-server='redis' \
+    --page-cache-redis-port='6379' \
+    --page-cache-redis-db='1' \
+    --page-cache-redis-compress-data='0' \
+&& php -f ./bin/magento indexer:set-mode schedule \
+&& cp ~/.composer/auth.json var/composer_home/auth.json \
+&& mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js \
+&& npm i \
+&& php -f ./bin/magento sampledata:deploy \
+&& php -f ./bin/magento setup:upgrade \
+&& php -f ./bin/magento indexer:reindex \
+&& php -f ./bin/magento cache:flush \
+&& php -f ./bin/magento deploy:mode:set production \
+&& composer dump-autoload -o
