@@ -35,6 +35,7 @@ If you want install the Magento 2, use like that:
 ```
 cd MYMAGENTO2
 ./shell
+rm index.php
 install-magento2
 ```
 
