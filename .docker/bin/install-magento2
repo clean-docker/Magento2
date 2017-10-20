@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 cd /var/www/html;
-if [ -f ~/.composer/auth.json ] || ["$1" -ne "auto"];then
-  rm -rf ./* ;
-  if [ -z "$1" ]; then
+if [ -f "/root/auth.json" ]; then
+  mv /root/auth.json /root/.composer/auth.json
+  mv /var/www/auth.json /var/www/.composer/auth.json
+  if [ $@ ]; then
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:$1 . ;
   else
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
   fi
-  chmod u+w -R var vendor pub/static pub/media app/etc;
-  chmod u+x bin/magento;
-  php -f ./bin/magento setup:install --base-url=http://localhost/ \
+  chmod u+w -R var vendor pub/static pub/media app/etc \
+  && chmod u+x bin/magento \
+  && php -f ./bin/magento setup:install --base-url=http://localhost/ \
       --db-host=db \
       --db-name=magento \
       --db-user=magento \
@@ -49,15 +50,17 @@ if [ -f ~/.composer/auth.json ] || ["$1" -ne "auto"];then
       --page-cache-redis-server='redis' \
       --page-cache-redis-port='6379' \
       --page-cache-redis-db='1' \
-      --page-cache-redis-compress-data='0'
-  php -f ./bin/magento indexer:set-mode schedule
-  cp ~/.composer/auth.json var/composer_home/auth.json
-  mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js
-  npm i grunt; npm i
-  php -f ./bin/magento sampledata:deploy
-  php -f ./bin/magento setup:upgrade
-  php -f ./bin/magento indexer:reindex
-  php -f ./bin/magento cache:flush
-  php -f ./bin/magento deploy:mode:set production
-  composer dump-autoload -o
+      --page-cache-redis-compress-data='0' \
+  && php -f ./bin/magento indexer:set-mode schedule \
+  && cp ~/.composer/auth.json var/composer_home/auth.json \
+  && mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js \
+  && npm i grunt; npm i \
+  && php -f ./bin/magento sampledata:deploy \
+  && php -f ./bin/magento setup:upgrade \
+  && php -f ./bin/magento indexer:reindex \
+  && php -f ./bin/magento cache:flush \
+  && php -f ./bin/magento deploy:mode:set production \
+  && composer dump-autoload -o
+else
+    echo "<?php phpinfo();" >> /var/www/html/index.php
 fi
