@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 cd /var/www/html;
-if [ -f /var/www/.composer/auth.json ] || ["$1" -ne "auto"];then
+if [ -f ~/.composer/auth.json ] || ["$1" -ne "auto"];then
   rm -rf ./* ;
   if [ -z "$1" ]; then
     composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:$1 . ;
