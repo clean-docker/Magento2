@@ -6,7 +6,7 @@ fi
 sudo chmod u+x ./*
 
 if [ -f ~/.composer/auth.json ]; then
-  cp ~/.composer/auth.json ./docker/composer/
+  cp ~/.composer/auth.json ./.docker/composer/
 fi
 
 if [ "$(uname)" == "Darwin" ]; then
