@@ -14,7 +14,7 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	libfreetype6-dev \
 	libicu-dev \
-  libssl-dev \
+    libssl-dev \
 	libjpeg62-turbo-dev \
 	libmcrypt-dev \
 	libpng12-dev \
@@ -22,7 +22,7 @@ RUN apt-get update \
 	libedit2 \
 	libxslt1-dev \
 	apt-utils \
-  mysql-client \
+    mysql-client \
 	git \
 	vim \
 	wget \
@@ -96,17 +96,18 @@ ADD .docker/config/magento.conf /etc/apache2/sites-available/magento.conf
 ADD .docker/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
 ADD .docker/config/.bashrc /var/www/.bashrc
 COPY .docker/bin/* /usr/local/bin/
+COPY .docker/composer/* /root/composer/
 RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 
 RUN chmod 777 -R /var/www \
-		&& chown -R www-data:1000 /var/www \
+	&& chown -R www-data:1000 /var/www \
   	&& usermod -u 1000 www-data \
     && chsh -s /bin/bash www-data\
    	&& a2enmod rewrite \
   	&& a2enmod headers
 
-RUN setup-cron
+RUN setup-cron && install-magento2 auto
 
 VOLUME /var/www/html
 WORKDIR /var/www/html

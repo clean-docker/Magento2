@@ -5,6 +5,10 @@ fi
 
 sudo chmod u+x ./*
 
+if [ -f ~/.composer/auth.json ]; then
+  cp ~/.composer/auth.json ./docker/composer/
+fi
+
 if [ "$(uname)" == "Darwin" ]; then
   git checkout mac;
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
@@ -15,5 +19,4 @@ else
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
 fi
 
-bash start && \
-docker-compose exec --user www-data apache install-magento2
+bash start

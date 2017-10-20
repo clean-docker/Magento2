@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 cd /var/www/html;
-if [ -f /var/www/.composer/auth.json ];then
-  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
+if [ -f ~/.composer/auth.json ] || ["$1" -ne "auto"];then
+  rm -rf ./* ;
+  if [ -z "$1" ]; then
+    composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:$1 . ;
+  else
+    composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
+  fi
   chmod u+w -R var vendor pub/static pub/media app/etc;
   chmod u+x bin/magento;
-  mage setup:install --base-url=http://localhost/ \
+  php -f ./bin/magento setup:install --base-url=http://localhost/ \
       --db-host=db \
       --db-name=magento \
       --db-user=magento \
@@ -45,16 +50,14 @@ if [ -f /var/www/.composer/auth.json ];then
       --page-cache-redis-port='6379' \
       --page-cache-redis-db='1' \
       --page-cache-redis-compress-data='0'
-  mage indexer:set-mode schedule
+  php -f ./bin/magento indexer:set-mode schedule
   cp ~/.composer/auth.json var/composer_home/auth.json
   mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js
   npm i grunt; npm i
-  mage sampledata:deploy
-  mage setup:upgrade
-  mage indexer:reindex
-  mage cache:flush
-  mage deploy:mode:set production
+  php -f ./bin/magento sampledata:deploy
+  php -f ./bin/magento setup:upgrade
+  php -f ./bin/magento indexer:reindex
+  php -f ./bin/magento cache:flush
+  php -f ./bin/magento deploy:mode:set production
   composer dump-autoload -o
-else
-    echo "<?php phpinfo();" >> ./index.php;
 fi
