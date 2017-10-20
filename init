@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 if [ "$2" == "clone" ]; then
   git clone https://github.com/clean-docker/Magento2.git $1 && cd $1;
 fi
