@@ -10,7 +10,7 @@ return array(
         ),
     'session' =>
         array(
-            'save' => 'redis',
+            'save' => 'redis-session',
             'redis' =>
                 array(
 
