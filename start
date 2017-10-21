@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+sudo ifconfig lo0 alias 10.254.254.254
+docker-sync start && \
 docker-compose up -d && \
 echo '
 ===================== Done ===================
+
       Created by Rafael Corrêa Gomes
 
       Access your new links:
