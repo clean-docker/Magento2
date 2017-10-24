@@ -6,12 +6,12 @@ fi
 sudo chmod u+x ./*
 
 if [ "$(uname)" == "Darwin" ]; then
-  git checkout mac;
+  git checkout -f mac;
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
   && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
   && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml
 else
-  git checkout master;
+  git checkout -f master;
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
 fi
 
