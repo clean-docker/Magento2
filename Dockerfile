@@ -14,7 +14,7 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	libfreetype6-dev \
 	libicu-dev \
-  libssl-dev \
+	libssl-dev \
 	libjpeg62-turbo-dev \
 	libmcrypt-dev \
 	libpng12-dev \
@@ -22,7 +22,8 @@ RUN apt-get update \
 	libedit2 \
 	libxslt1-dev \
 	apt-utils \
-  mysql-client \
+	redis-tools \
+	mysql-client \
 	git \
 	vim \
 	wget \
