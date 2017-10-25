@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+redis-cli -h redis-session -p 6379 flushall
+redis-cli -h redis -p 6379 flushall
