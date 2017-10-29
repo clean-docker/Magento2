@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+if [ $@ ]; then
+  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:$1 . ;
+else
+  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . ;
+fi
+chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
+&& chmod u+x ./bin/magento \
+&& php -f ./bin/magento setup:install --base-url=http://localhost/ \
+    --db-host=db \
+    --db-name=magento \
+    --db-user=magento \
+    --db-password=magento \
+    --admin-firstname=Magento \
+    --admin-lastname=Commerce \
+    --admin-email=user@example.com \
+    --admin-user=admin \
+    --admin-password=admin123 \
+    --language=en_US \
+    --currency=USD \
+    --timezone=America/Chicago \
+    --use-rewrites=1 \
+    --backend-frontname=admin \
+    --use-sample-data \ 
+&& php -f ./bin/magento indexer:set-mode schedule \
+&& cp ~/.composer/auth.json var/composer_home/auth.json \
+&& php -f ./bin/magento sampledata:deploy \
+&& php -f ./bin/magento setup:upgrade \
+&& php -f ./bin/magento indexer:reindex \
+&& php -f ./bin/magento cache:flush \
+&& php -f ./bin/magento deploy:mode:set production \
+&& composer dump-autoload -o ;
+mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js \
+&& npm i
