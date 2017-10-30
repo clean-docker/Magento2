@@ -10,11 +10,11 @@ return array(
         ),
     'session' =>
         array(
-            'save' => 'redis-session',
+            'save' => 'redis',
             'redis' =>
                 array(
 
-                    'host' => 'redis',
+                    'host' => 'redis-session',
                     'port' => '6379',
                     'password' => '',
                     'timeout' => '2.5',
