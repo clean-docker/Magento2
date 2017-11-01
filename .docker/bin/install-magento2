@@ -21,32 +21,9 @@ chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
     --timezone=America/Chicago \
     --use-rewrites=1 \
     --backend-frontname=admin \
-    --use-sample-data \    
-    --session-save-redis-host='redis-session' \
-    --session-save-redis-port='6379' \
-    --session-save-redis-password=' ' \
-    --session-save-redis-timeout='2.5' \
-    --session-save-redis-persistent-id=' ' \
-    --session-save-redis-db='2' \
-    --session-save-redis-compression-threshold='2048' \
-    --session-save-redis-compression-lib='gzip' \
-    --session-save-redis-log-level='1' \
-    --session-save-redis-max-concurrency='6' \
-    --session-save-redis-break-after-frontend='5' \
-    --session-save-redis-break-after-adminhtml='30' \
-    --session-save-redis-first-lifetime='600' \
-    --session-save-redis-bot-first-lifetime='60' \
-    --session-save-redis-bot-lifetime='7200' \
-    --session-save-redis-disable-locking='0' \
-    --session-save-redis-min-lifetime='60' \
-    --session-save-redis-max-lifetime='2592000' \
-    --cache-backend-redis-server='redis' \
-    --cache-backend-redis-db='0' \
-    --cache-backend-redis-port='6379' \
-    --page-cache-redis-server='redis' \
-    --page-cache-redis-port='6379' \
-    --page-cache-redis-db='1' \
-    --page-cache-redis-compress-data='0' \
+    --use-sample-data \
+&& mv ./app/etc/env.php ./app/etc/env.original.php \
+&& cp -rv /var/www/env.sample.php ./app/etc/env.php \
 && php -f ./bin/magento indexer:set-mode schedule \
 && cp ~/.composer/auth.json var/composer_home/auth.json \
 && php -f ./bin/magento sampledata:deploy \
