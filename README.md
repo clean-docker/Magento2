@@ -2,7 +2,7 @@
 
 #  Magento 2 Docker to Development
 
-### Apache 2.4 + PHP 7.0.24 + OPCache + MariaDB + N98 Magerun 2 + XDebug + Redis
+### Apache 2.4 + PHP 7.0 + OPCache + MariaDB + N98 Magerun 2 + XDebug + Redis
 
 [![Build Status](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)](https://travis-ci.org/clean-docker/Magento2)
 [![Build Status](https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg)](https://microbadger.com/images/rafaelcgstz/magento2)
@@ -58,6 +58,7 @@ Enjoy your new panels!
 | `./init`  | If you didn't use the CURL setup command above, please use this command changing the name of the project.  | `./init MYMAGENTO2` |
 | `./start`  | If you continuing not using the CURL you can start your container manually  | |
 | `./stop`  | Stop your project containers  | |
+| `./kill`  | Stops containers and removes containers, networks, volumes, and images created to the specific project  | |
 | `./shell`  | Access your container  | `./shell root` | |
 | `./magento`  | Use the power of the Magento CLI  | |
 | `./n98`  | Use the Magerun commands as you want | |
