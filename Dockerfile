@@ -99,8 +99,8 @@ COPY .docker/users/* /var/www/
 RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 
-RUN chmod 777 -R /var/www \
-	&& chown -R www-data:1000 /var/www \
+RUN chmod 777 -Rf /var/www /var/www/.* \
+	&& chown -Rf www-data:www-data /var/www /var/www/.* \
 	&& usermod -u 1000 www-data \
 	&& chsh -s /bin/bash www-data\
 	&& a2enmod rewrite \
