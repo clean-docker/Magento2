@@ -7,20 +7,19 @@
 [![Build Status](https://travis-ci.org/clean-docker/Magento2.svg?branch=master)](https://travis-ci.org/clean-docker/Magento2)
 [![Build Status](https://images.microbadger.com/badges/image/rafaelcgstz/magento2.svg)](https://microbadger.com/images/rafaelcgstz/magento2)
 
-### MacOS / Linux Requirements
+### Requirements
 
-**MacOS (Docker, Docker-compose and Docker-sync)**
+**MacOS:**
 
-```
-  brew tap caskroom/cask
-  brew cask install docker
-  brew install docker-compose
-  sudo gem install docker-sync
-```
+Install [Docker](https://docs.docker.com/docker-for-mac/install/), [Docker-compose](https://docs.docker.com/compose/install/#install-compose) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-OSX).
 
-**Linux (Docker, Docker-compose)**
+**Windows:**
 
-Use this [official Docker tutorial](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/).
+Install [Docker](https://docs.docker.com/docker-for-windows/install/), [Docker-compose](https://docs.docker.com/compose/install/#install-compose) and [Docker-sync](https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-Windows).
+
+**Linux:**
+
+Install [Docker](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/) and [Docker-compose](https://docs.docker.com/compose/install/#install-compose).
 
 ### How to use
 
