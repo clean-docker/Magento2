@@ -15,4 +15,12 @@ else
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
 fi
 
+if [ ! -e src/index.php ]; then
+  echo "<?php phpinfo();" >> src/index.php
+fi
+
+if [ ! -e src/app/etc/env.php ]; then
+  mv .docker/users/env.sample.php src/app/etc/env.php
+fi
+
 bash start

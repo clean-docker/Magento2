@@ -1,2 +1,5 @@
 #!/usr/bin/env bash
+docker-compose stop
+docker-sync stop
+docker-sync clean
 docker-compose down -v
