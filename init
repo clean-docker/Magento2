@@ -19,8 +19,10 @@ if [ ! -e src/index.php ]; then
   echo "<?php phpinfo();" > src/index.php;
 fi
 
-if [ ! -e src/app/etc/env.php ] && [ -d src/app/etc ]; then
-  cp .docker/users/env.sample.php src/app/etc/env.php;
+if [ -d src/app/etc ]; then  
+  if [ ! -e src/app/etc/env.php ]; then
+    cp .docker/users/env.sample.php src/app/etc/env.php;
+  fi
 fi
 
 bash start
