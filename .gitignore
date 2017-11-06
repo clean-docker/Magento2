@@ -1,4 +1,4 @@
-/src
+/src/*
 .DS_Store
 /.idea
 /.docker-sync

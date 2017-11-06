@@ -9,18 +9,18 @@ if [ "$(uname)" == "Darwin" ] || [ "$(uname)" == "cygwin" ] || [ "$(uname)" == "
   git checkout -f mac-windows;
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
   && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
-  && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml
+  && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml;
 else
   git checkout -f master;
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
 fi
 
 if [ ! -e src/index.php ]; then
-  echo "<?php phpinfo();" >> src/index.php
+  echo "<?php phpinfo();" > src/index.php;
 fi
 
 if [ ! -e src/app/etc/env.php ]; then
-  mv .docker/users/env.sample.php src/app/etc/env.php
+  cp .docker/users/env.sample.php src/app/etc/env.php;
 fi
 
 bash start
