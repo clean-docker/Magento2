@@ -14,5 +14,5 @@ script:
   - chmod -R u+x ./*
   - ./init travisci
   - cd src/ ; rm index.php ; git clone https://github.com/magento/magento2 .
-  - ./shell
+  - ../shell
   - install-magento2
