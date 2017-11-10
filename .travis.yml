@@ -14,3 +14,8 @@ script:
   - chmod -R u+x ./*
   - ./init travisci
   - docker-compose build --no-cache
+  - https://gist.githubusercontent.com/rafaelstz/4dedb475f3959a6346e2bcfbec2b8e81/raw/03f122da0b6c009f87983bfdc3ff53246d242ed6/auth.json
+  - mv auth.json ~/.composer/auth.json
+  - rm src/index.php
+  - ./shell
+  - install-magento2
