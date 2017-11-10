@@ -13,8 +13,6 @@ before_install:
 script:
   - chmod -R u+x ./*
   - ./init travisci
-  - docker-compose build --no-cache
-  - echo '{"http-basic": {"repo.magento.com": {"username":"4663362708601ec0c460a36edf59c70d","password":"f30b05a56f3b06d8b134ef93da73be5e"}}}' > ~/.composer/auth.json
-  - rm src/index.php
+  - cd src/ ; rm index.php ; git clone https://github.com/magento/magento2 .
   - ./shell
   - install-magento2
