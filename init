@@ -5,14 +5,19 @@ fi
 
 sudo chmod -R u+x ./*
 
-if [ "$(uname)" == "Darwin" ] || [ "$(uname)" == "cygwin" ] || [ "$(uname)" == "msys" ] || [ "$(uname)" == "win32" ]; then
-  git checkout -f mac-windows;
-  sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
-  && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
-  && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml;
+if [ "$(uname)" == "Darwin" ]; then
+    git checkout -f mac;
+    sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
+    && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
+    && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml;
+elif [ "$(uname)" == "cygwin" ] || [ "$(uname)" == "msys" ] || [ "$(uname)" == "win32" ]; then
+    git checkout -f windows;
+    sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
+    && sed -i '' -e "s/<project_name>/$1/g" docker-compose-dev.yml \
+    && sed -i '' -e "s/<project_name>/$1/g" docker-sync.yml;
 else
-  git checkout -f master;
-  sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
+    git checkout -f master;
+    sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml;
 fi
 
 if [ ! -e src/index.php ]; then

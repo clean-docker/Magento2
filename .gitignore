@@ -1,4 +1,4 @@
 /src/*
 .DS_Store
 /.idea
-/*.log
+/docker-compose.yml

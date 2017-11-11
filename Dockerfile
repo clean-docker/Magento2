@@ -101,11 +101,10 @@ RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/m
 
 RUN chmod 777 -R /var/www \
 	&& chown -R www-data:1000 /var/www \
-	&& chown -R www-data:1000 /var/www/html \ 
-	&& chmod -R 777 /var/www/html \ 
-  	&& usermod -u 1000 www-data \
-  	&& chsh -s /bin/bash www-data\
-  	&& a2enmod rewrite \
+	&& usermod -u 1000 www-data \
+	&& chmod -R 777 /var/www/html \
+	&& chsh -s /bin/bash www-data\
+	&& a2enmod rewrite \
 	&& a2enmod headers
 
 RUN setup-cron
