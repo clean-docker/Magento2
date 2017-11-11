@@ -5,15 +5,30 @@ syncs:
   <project_name>-sync:
     sync_userid: '1000'
     sync_strategy: 'native_osx'
+    host_disk_mount_mode: 'cached'
     src: './src'
-    sync_args:
-        - "-ignore='Path ./src/.idea'"          # no need to send PHPStorm config to container
-        - "-ignore='Path ./src/.git'"           # ignore the main .git repo
-        - "-ignore='BelowPath ./src/.git'"      # also ignore .git repos in subfolders such as in composer vendor dirs
-        - "-ignore='Path ./src/var/cache/*'"    # don't share the cache
-        - "-ignore='Path ./src/var/sessions/*'" # we don't need the sessions locally
-        - "-ignore='Path ./src/var/page_cache/*'"
-        - "-ignore='Path ./src/var/generation/*'"
-        - "-ignore='Path ./src/var/composer_home/*'"
-        - "-ignore='Path ./src/node_modules/*'" # remove this if you need code completion
-#        - "-ignore='Path ./src/vendor/*'"     # we could ignore the composer vendor folder, but then you won't have code completion in your IDE
+    # watch_args: '-v'
+    sync_excludes: [
+    '.idea',
+    '.git',
+    'var/cache',
+    'var/sessions',
+    'var/page_cache',
+    'var/generation',
+    'var/composer_home',
+    'node_modules',
+    # 'vendor/*',
+    'pub/static'
+    ]
+    watch_excludes: [
+    '.idea',
+    '.git',
+    'var/cache',
+    'var/sessions',
+    'var/page_cache',
+    'var/generation',
+    'var/composer_home',
+    'node_modules',
+    # 'vendor/*',
+    'pub/static'
+    ]
