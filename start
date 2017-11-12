@@ -3,13 +3,14 @@ cd src && git config core.fileMode false && cd .. && \
 docker-compose up -d && \
 docker-compose exec --user root apache fix-permission; \
 echo '
-===================== Done ===================
+===================== 🚀 Done 🚀 ===================
 
-      Created by Rafael Corrêa Gomes
+      👨‍ Created by Rafael Corrêa Gomes
 
       Access your new links:
-      Web server: http://localhost/
-      PHPMyAdmin: http://localhost:8080
-      Local emails: http://localhost:8025
 
-===================== Done ==================='
+      🌎 Web server: http://localhost/
+      ⚙️ PHPMyAdmin: http://localhost:8080
+      ✉️ Local emails: http://localhost:8025
+
+===================== 🚀 Done 🚀 ==================='
