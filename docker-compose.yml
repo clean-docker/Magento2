@@ -1,7 +1,7 @@
 version: '2'
 services:
   apache:
-    image: rafaelcgstz/magento2:mac-windows
+    image: rafaelcgstz/magento2:windows
     # build: .
     ports:
       - "80:80" # web

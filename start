@@ -7,7 +7,7 @@ docker-compose exec --user root apache fix-permission; \
 echo '
 ===================== 🚀 Done 🚀 ===================
 
-      👨‍ Created by Rafael Corrêa Gomes
+      Created by Rafael Corrêa Gomes
 
       Access your new links:
 
