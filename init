@@ -31,3 +31,7 @@ if [ -d src/app/etc ]; then
 fi
 
 bash start
+
+echo 'Setting the folders permissions...';
+docker-compose exec --user root apache fix-permission;
+echo 'Done =============================';
