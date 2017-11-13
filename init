@@ -30,4 +30,5 @@ if [ -d src/app/etc ]; then
   fi
 fi
 
-bash start
+bash start \
+&& docker-compose exec --user root apache fix-permission;
