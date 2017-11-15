@@ -29,7 +29,7 @@ Execute in your terminal, change the *MYMAGENTO2* to use the name of your projec
 curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s MYMAGENTO2 clone
 ```
 
-If you want install the Magento 2, use like that:
+If you want to install the Magento 2, use like that:
 
 ```
 cd MYMAGENTO2
