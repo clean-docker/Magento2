@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-chmod -R 777 /var/www/
+#chmod -R 777 /var/www/
 find /var/www/html/ -type f -exec chmod 644 {} \;      # 644 permission for files
 find /var/www/html/ -type d -exec chmod 755 {} \;      # 755 permission for directory
 if [ -d /var/www/html/var/ ]; then
