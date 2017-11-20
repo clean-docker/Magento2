@@ -20,7 +20,6 @@ chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
     --currency=USD \
     --timezone=America/Chicago \
     --use-rewrites=1 \
-    --use-sample-data \
     --backend-frontname=admin \
     --use-sample-data \
 && mv ./app/etc/env.php ./app/etc/env.original.php;
