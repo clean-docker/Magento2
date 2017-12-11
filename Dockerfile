@@ -14,7 +14,7 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	libfreetype6-dev \
 	libicu-dev \
-  libssl-dev \
+  	libssl-dev \
 	libjpeg62-turbo-dev \
 	libmcrypt-dev \
 	libpng12-dev \
@@ -22,7 +22,7 @@ RUN apt-get update \
 	libedit2 \
 	libxslt1-dev \
 	apt-utils \
-  mysql-client \
+  	mysql-client \
 	git \
 	vim \
 	wget \
@@ -32,6 +32,7 @@ RUN apt-get update \
 	unzip \
 	tar \
 	cron \
+	bash-completion \
 	&& apt-get clean
 
 # Install Magento Dependencies
@@ -98,6 +99,11 @@ COPY .docker/bin/* /usr/local/bin/
 COPY .docker/users/* /var/www/
 RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
+
+RUN curl -o /etc/bash_completion.d/m2install-bash-completion https://raw.githubusercontent.com/yvoronoy/m2install/master/m2install-bash-completion
+RUN curl -o /etc/bash_completion.d/n98-magerun2.phar.bash https://raw.githubusercontent.com/netz98/n98-magerun2/master/res/autocompletion/bash/n98-magerun2.phar.bash
+RUN echo "source /etc/bash_completion" >> /root/.bashrc
+RUN echo "source /etc/bash_completion" >> /var/www/.bashrc
 
 RUN chmod 777 -Rf /var/www /var/www/.* \
 	&& chown -Rf www-data:www-data /var/www /var/www/.* \
