@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 sudo ifconfig lo0 alias 10.254.254.254
+cd src && git config core.fileMode false && cd .. && \
 docker-sync start && \
 docker-compose up -d && \
 echo '
-===================== Done ===================
+===================== 🚀 Done 🚀 ===================
 
       Created by Rafael Corrêa Gomes
 
       Access your new links:
-      Web server: http://localhost/
-      PHPMyAdmin: http://localhost:8080
-      Local emails: http://localhost:8025
 
-===================== Done ==================='
+      🌎 Web server: http://localhost/
+      ⚙️ PHPMyAdmin: http://localhost:8080
+      ✉️ Local emails: http://localhost:8025
+
+===================== 🚀 Done 🚀 ==================='
