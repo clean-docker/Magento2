@@ -16,6 +16,9 @@ syncs:
     'var/page_cache',
     'var/generation',
     'var/composer_home',
+    'var/view_preprocessed',
+    'var/session',
+    'var/tmp',
     'node_modules',
     # 'vendor/*',
     'pub/static'
@@ -28,6 +31,9 @@ syncs:
     'var/page_cache',
     'var/generation',
     'var/composer_home',
+    'var/view_preprocessed',
+    'var/session',
+    'var/tmp',
     'node_modules',
     # 'vendor/*',
     'pub/static'
