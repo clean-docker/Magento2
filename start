@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-cd src && git config core.fileMode false && cd .. && \
 docker-compose up -d && \
 version=$(git tag)
 echo "
