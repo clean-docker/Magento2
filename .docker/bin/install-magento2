@@ -24,8 +24,8 @@ chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
     --use-sample-data \
 && mv ./app/etc/env.php ./app/etc/env.original.php;
 cp -rv /var/www/env.sample.php ./app/etc/env.php \
-&& php -f ./bin/magento indexer:set-mode schedule \
-&& cp ~/.composer/auth.json var/composer_home/auth.json \
+&& php -f ./bin/magento indexer:set-mode schedule;
+cp ~/.composer/auth.json var/composer_home/auth.json \
 && php -f ./bin/magento sampledata:deploy \
 && php -f ./bin/magento setup:upgrade \
 && php -f ./bin/magento indexer:reindex \
@@ -33,4 +33,14 @@ cp -rv /var/www/env.sample.php ./app/etc/env.php \
 && php -f ./bin/magento deploy:mode:set production \
 && composer dump-autoload -o ;
 mv package.json.sample package.json ; mv Gruntfile.js.sample Gruntfile.js;
-npm i
+npm i;
+clear && echo "
+===================== 🚀 Done 🚀 ===================
+
+      Magento 2 Installed successfully!
+
+      🌎 Admin: http://localhost/admin
+      👤 User: admin
+      🔑 Password: admin123
+
+===================== 🚀 Done 🚀 ==================="
