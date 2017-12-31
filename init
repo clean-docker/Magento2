@@ -10,6 +10,8 @@ git config --global diff.renamelimit 5000
 
 sudo chmod u+x ./*
 
+docker image pull rafaelcgstz/magento2
+
 if [ "$(uname)" == "Darwin" ]; then
   git checkout -f mac;
   sed -i '' -e "s/<project_name>/$1/g" docker-compose.yml \
