@@ -70,4 +70,4 @@ Enjoy your new panels!
 
 ### License
 
-MIT © 2017 [Rafael Corrêa Gomes](https://github.com/rafaelstz/) and contributors.
+MIT © 2018 [Rafael Corrêa Gomes](https://github.com/rafaelstz/) and contributors.
