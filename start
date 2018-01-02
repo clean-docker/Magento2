@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 docker-compose up -d && \
-version=$(git tag)
+version=$(git describe --tags $(git rev-list --tags --max-count=1))
 echo "
 ===================== 🚀 Done 🚀 ===================
 
