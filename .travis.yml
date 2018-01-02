@@ -13,3 +13,5 @@ before_install:
 script:
   - chmod -R u+x ./*
   - ./init travisci
+  - rm src/index.php
+  - docker-compose exec --user www-data apache install-magento2
