@@ -23,8 +23,8 @@ syncs:
     'var/tmp',
     'node_modules',
     'vendor/*',
-    'pub/static',
-    'pub/media'
+    'pub/static/*',
+    'pub/media/*'
     ]
     watch_excludes: [
     '.idea',
@@ -41,6 +41,6 @@ syncs:
     'var/tmp',
     'node_modules',
     'vendor/*',
-    'pub/static',
-    'pub/media'
+    'pub/static/*',
+    'pub/media/*'
     ]
