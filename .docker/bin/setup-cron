@@ -1,9 +1,0 @@
-#!/bin/bash
-
-SRC_DIR=/var/www/html
-
-echo "*/1 * * * * su -c \"$SRC_DIR/bin/magento cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1" | crontab - \
-&& (crontab -l ; echo "*/1 * * * * su -c \"$SRC_DIR/bin/magento setup:cron:run\" -s /bin/sh www-data > /proc/1/fd/2 2>&1") | crontab -
-
-# Start the cron service
-/usr/sbin/cron
