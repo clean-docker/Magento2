@@ -114,7 +114,5 @@ RUN chmod 777 -Rf /var/www /var/www/.* \
 	&& a2enmod rewrite \
 	&& a2enmod headers
 
-RUN setup-cron
-
 VOLUME /var/www/html
 WORKDIR /var/www/html
