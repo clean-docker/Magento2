@@ -23,8 +23,8 @@ chmod u+w -R ./var ./vendor ./pub/static ./pub/media ./app/etc \
     --backend-frontname=admin \
     --use-sample-data \
 && mv ./app/etc/env.php ./app/etc/env.original.php;
-cp -rv /var/www/env.sample.php ./app/etc/env.php \
-&& n98 cron:install; \
+cp -rv /var/www/env.sample.php ./app/etc/env.php;
+n98 cron:install;
 php -f ./bin/magento indexer:set-mode schedule;
 cp ~/.composer/auth.json var/composer_home/auth.json \
 && php -f ./bin/magento sampledata:deploy \
