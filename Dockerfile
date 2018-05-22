@@ -74,6 +74,14 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 RUN	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
 RUN composer global require hirak/prestissimo
 
+# Install Code Sniffer
+
+RUN composer global require "squizlabs/php_codesniffer=*"
+RUN composer global require magento-ecg/coding-standard
+RUN ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/magento-ecg/coding-standard
+RUN ln -s ~/.composer/vendor/bin/phpcs /usr/local/bin;
+ENV PATH="/var/www/.composer/vendor/bin/:${PATH}"
+
 # Install XDebug
 
 RUN yes | pecl install xdebug && \
