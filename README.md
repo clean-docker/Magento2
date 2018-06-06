@@ -70,6 +70,15 @@ Enjoy your new panels!
 | `./xdebug`  |  Enable / Disable the XDebug | |
 | `./composer`  |  Use Composer commands | `./composer update` |
 
+### Elasticsearch 
+
+To use elastic search you can use this command below:
+`$ docker-compose -f docker-compose.yml -f docker-compose.elasticsearch.yml up`
+or to run in the background using detached mode
+`$docker-compose -f docker-compose.yml -f docker-compose.elasticsearch.yml up -d`
+
+**Elasticsearch:** http://localhost:9200
+
 ### License
 
 MIT © 2018 [Rafael Corrêa Gomes](https://github.com/rafaelstz/) and [contributors](https://github.com/clean-docker/Magento2/graphs/contributors).
