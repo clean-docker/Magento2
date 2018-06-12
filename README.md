@@ -73,9 +73,12 @@ Enjoy your new panels!
 ### Elasticsearch 
 
 To use elastic search you can use this command below:
+
 `$ docker-compose -f docker-compose.yml -f docker-compose.elasticsearch.yml up`
+
 or to run in the background using detached mode
-`$docker-compose -f docker-compose.yml -f docker-compose.elasticsearch.yml up -d`
+
+`$ docker-compose -f docker-compose.yml -f docker-compose.elasticsearch.yml up -d`
 
 **Elasticsearch:** http://localhost:9200
 
