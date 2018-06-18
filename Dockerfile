@@ -76,10 +76,10 @@ RUN composer global require hirak/prestissimo
 
 # Install Code Sniffer
 
-RUN composer global require "squizlabs/php_codesniffer=*"
 RUN git clone https://github.com/magento/marketplace-eqp.git ~/.composer/vendor/magento/marketplace-eqp
-RUN ~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/magento/marketplace-eqp
-RUN ln -s ~/.composer/vendor/bin/phpcs /usr/local/bin;
+RUN cd ~/.composer/vendor/magento/marketplace-eqp && composer install
+RUN ln -s ~/.composer/vendor/magento/marketplace-eqp/vendor/bin/phpcs /usr/local/bin;
+
 ENV PATH="/var/www/.composer/vendor/bin/:${PATH}"
 
 # Install XDebug
