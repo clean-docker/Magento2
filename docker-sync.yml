@@ -4,6 +4,7 @@ options:
 syncs:
   <project_name>-sync:
     sync_userid: '1000'
+    sync_args: ['-perms=0']
     sync_strategy: 'unison'
     host_disk_mount_mode: 'cached'
     src: './src'
