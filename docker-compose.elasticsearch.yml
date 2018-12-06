@@ -13,6 +13,6 @@ services:
     volumes:
       - ./elasticsearchdata:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
+      - 9201:9200
     networks:
-      - <project_name>-network
+      - M2DOCKER-network

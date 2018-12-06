@@ -1,10 +1,10 @@
 version: '2'
 services:
   apache:
-    image: rafaelcgstz/magento2
-    # build: .
+    #image: rafaelcgstz/magento2
+    build: .
     ports:
-      - "80:80" # web
+      - "9999:80" # web
       - "9001:9000" # xdebug
       # - "35729:35729" # live reload
     volumes:
@@ -20,7 +20,7 @@ services:
     links:
       - db
     networks:
-      - <project_name>-network
+      - -network
 
   db:
     image: mariadb
@@ -34,7 +34,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - <project_name>-network
+      - -network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -44,23 +44,23 @@ services:
      - PMA_PASSWORD=root
      - MYSQL_ROOT_PASSWORD=root
     ports:
-     - 8080:80
+     - 8081:80
     networks:
-      - <project_name>-network
+      - -network
 
   redis:
     image: redis
     ports:
      - 6379
     networks:
-      - <project_name>-network
+      - -network
 
   redis-session:
     image: redis
     ports:
      - 6379
     networks:
-      - <project_name>-network
+      - -network
 
   mailhog:
     image: mailhog/mailhog
@@ -68,10 +68,10 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - <project_name>-network
+      - -network
 
 networks:
-  <project_name>-network:
+  -network:
     driver: bridge
 
 volumes:

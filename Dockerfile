@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.2-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcgstz@gmail.com>
 
@@ -11,9 +11,10 @@ RUN apt-get update \
 	software-properties-common \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y \
+	nano \
 	libfreetype6-dev \
 	libicu-dev \
-  libssl-dev \
+  	libssl-dev \
 	libjpeg62-turbo-dev \
 	libmcrypt-dev \
 	libedit-dev \
@@ -39,17 +40,17 @@ RUN apt-get update \
 
 RUN docker-php-ext-configure \
   	gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/; \
-  	docker-php-ext-install \
-  	opcache \
-  	gd \
-  	bcmath \
-  	intl \
-  	mbstring \
-  	mcrypt \
-  	pdo_mysql \
-  	soap \
-  	xsl \
-  	zip
+	docker-php-ext-install \
+	dom \ 
+	gd \ 
+	intl \ 
+	mbstring \ 
+	pdo_mysql \ 
+	xsl \ 
+	zip \ 
+	soap \ 
+	bcmath
+
 
 # Install oAuth
 
@@ -115,6 +116,7 @@ RUN echo "source /etc/bash_completion" >> /root/.bashrc
 RUN echo "source /etc/bash_completion" >> /var/www/.bashrc
 
 RUN chmod 777 -Rf /var/www /var/www/.* \
+	&& usermod -a -G root www-data \
 	&& chown -Rf www-data:www-data /var/www /var/www/.* \
 	&& usermod -u 1000 www-data \
 	&& chsh -s /bin/bash www-data\
