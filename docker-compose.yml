@@ -20,7 +20,7 @@ services:
     links:
       - db
     networks:
-      - -network
+      - <project_name>-network
 
   db:
     image: mariadb
@@ -34,7 +34,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - -network
+      - <project_name>-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -46,21 +46,21 @@ services:
     ports:
      - 8081:80
     networks:
-      - -network
+      - <project_name>-network
 
   redis:
     image: redis
     ports:
      - 6379
     networks:
-      - -network
+      - <project_name>-network
 
   redis-session:
     image: redis
     ports:
      - 6379
     networks:
-      - -network
+      - <project_name>-network
 
   mailhog:
     image: mailhog/mailhog
@@ -68,7 +68,7 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - -network
+      - <project_name>-network
 
 networks:
   -network:
