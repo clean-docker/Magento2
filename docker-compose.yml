@@ -1,26 +1,34 @@
 version: '2'
 services:
   apache:
-    image: rafaelcgstz/magento2
-    # build: .
+#    image: rafaelcgstz/magento2 #OFICIAL IMAGE
+    build: ./docker
     ports:
       - "80:80" # web
       - "9001:9000" # xdebug
-      # - "35729:35729" # live reload
     volumes:
       - ./src:/var/www/html
-      - ~/.composer:/var/www/.composer
-      - ~/.npm:/var/www/.npm
-      # - ~/.nvm:/var/www/.nvm
+#      - ~/.composer:/var/www/.composer
+#      - ~/.npm:/var/www/.npm
     environment:
       XDEBUG_CONFIG: "remote_host=localhost"
       PHP_IDE_CONFIG: "serverName=Docker"
+      HOST_NAME: "http://it.docker-magento"
+      ADMIN_USER_NAME: "admin"
+      ADMIN_PASSWORD: "wp@2019"
+      LANGUAGE: "pt_BR"
+      CURRENCY: "RS"
+      TIMEZONE: "America/Chicago"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE:  "magento"
+      MYSQL_USER: "magento"
+      MYSQL_PASSWORD: "magento"
     depends_on:
       - db
     links:
       - db
     networks:
-      - <project_name>-network
+      - docker-magento-network
 
   db:
     image: mariadb
@@ -34,33 +42,33 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - <project_name>-network
+      - docker-magento-network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-     - PMA_HOST=db
-     - PMA_USER=root
-     - PMA_PASSWORD=root
-     - MYSQL_ROOT_PASSWORD=root
-    ports:
-     - 8080:80
-    networks:
-      - <project_name>-network
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    environment:
+#     - PMA_HOST=db
+#     - PMA_USER=root
+#     - PMA_PASSWORD=root
+#     - MYSQL_ROOT_PASSWORD=root
+#    ports:
+#     - 8080:80
+#    networks:
+#      - docker-magento-network
 
   redis:
     image: redis
     ports:
      - 6379
     networks:
-      - <project_name>-network
+      - docker-magento-network
 
   redis-session:
     image: redis
     ports:
      - 6379
     networks:
-      - <project_name>-network
+      - docker-magento-network
 
   mailhog:
     image: mailhog/mailhog
@@ -68,10 +76,10 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - <project_name>-network
+      - docker-magento-network
 
 networks:
-  <project_name>-network:
+  docker-magento-network:
     driver: bridge
 
 volumes:

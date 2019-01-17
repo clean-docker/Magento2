@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+cd ..
 
 docker-compose exec --user root apache xdebug
