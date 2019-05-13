@@ -1,10 +1,10 @@
 version: '2'
 services:
   apache:
-    image: rafaelcgstz/magento2
-    # build: .
+    #image: rafaelcgstz/magento2
+    build: .
     ports:
-      - "80:80" # web
+      - "9999:80" # web
       - "9001:9000" # xdebug
       # - "35729:35729" # live reload
     volumes:
@@ -44,7 +44,7 @@ services:
      - PMA_PASSWORD=root
      - MYSQL_ROOT_PASSWORD=root
     ports:
-     - 8080:80
+     - 8081:80
     networks:
       - <project_name>-network
 
@@ -71,7 +71,7 @@ services:
       - <project_name>-network
 
 networks:
-  <project_name>-network:
+  -network:
     driver: bridge
 
 volumes:
