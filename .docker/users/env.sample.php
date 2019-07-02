@@ -49,6 +49,18 @@ return array(
                         ),
                 ),
         ),
+    'queue' =>
+        array (
+            'amqp' =>
+                array (
+                    'host' => 'rabbitmq',
+                    'port' => '5672',
+                    'user' => 'magento',
+                    'password' => 'magento',
+                    'virtualhost' => '/',
+                    'ssl' => 'false',
+                ),
+        ),
     'resource' =>
         array(
             'default_setup' =>
