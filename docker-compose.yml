@@ -70,6 +70,20 @@ services:
     networks:
       - <project_name>-network
 
+  rabbitmq:
+    image: "rabbitmq:3-management-alpine"
+    hostname: "rabbit"
+    ports:
+      - 15672:15672
+      - 5672:5672
+    labels:
+      name: "rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: "magento"
+      RABBITMQ_DEFAULT_PASS: "magento"
+    networks:
+      - <project_name>-network
+
 networks:
   <project_name>-network:
     driver: bridge
