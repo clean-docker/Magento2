@@ -1,107 +1,107 @@
-command composer
-#!/usr/bin/env bash
-docker-compose exec --user www-data apache composer $@
+#!/usr/bin/python
+import sys
+import os
+
+if sys.argv[0] != "./chikatana":
+    print("Comando no valido.")
+    exit(0)
+
+def printHelp():
+    print("Chikatana Command Line:")
+
+if len(sys.argv) == 1:
+    printHelp()
+    exit(0)
+
+if sys.argv[1] == "init":
+    os.system("docker-compose up -d")
+    exit(0)
+
+if sys.argv[1] == "up":
+    os.system("docker-compose up -d")
+    exit(0)
+
+if sys.argv[1] == "down":
+    os.system("docker-compose down")
+    exit(0)
+
+if sys.argv[1] == "restart":
+    os.system("docker-compose down && docker-compose up -d")
+    exit(0)
 
 
 
-command grint
-#!/usr/bin/env bash
-if [ -z "$1" ]
-  then
-    docker-compose exec --user www-data apache grunt exec
-    docker-compose exec --user www-data apache grunt less
-    docker-compose exec --user www-data apache grunt deploy
-    docker-compose exec --user www-data apache grunt watch
-else
-    docker-compose exec --user www-data apache grunt exec:$@
-    docker-compose exec --user www-data apache grunt less:$@
-    docker-compose exec --user www-data apache grunt watch:$@
-fi
+###################################################################################
+#                                                                                 #
+#                                 DOCKER COMMANDS                                 #
+#                                                                                 #
+###################################################################################
 
+if sys.argv[1] == "docker":
+    if len(sys.argv) == 3:
+        if sys.argv[2] == "ps":
+            os.system("docker-compose ps")
+            exit(0)
 
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    elif len(sys.argv) > 3:
+        if sys.argv[2] == "magento":
+            if sys.argv[3] == "build":
+                os.system("cd DockerFile && docker build --rm --no-cache -t rafaelcgstz/magento2 .")
+                exit(0)
 
-
-command grunt-init
-#!/usr/bin/env bash
-docker-compose exec --user www-data apache npm i grunt
-docker-compose exec --user www-data apache npm i
-./magento deploy:mode:set developer
-
-
-
-
-command kill
-#!/usr/bin/env bash
-docker-compose stop
-docker-compose down -v
-
-
-
-
-command magento
-#!/usr/bin/env bash
-docker-compose exec --user www-data apache /var/www/html/bin/magento $@
-
-
-
-
-command n98
-#!/usr/bin/env bash
-docker-compose exec --user www-data apache n98-magerun2.phar $@
-
-
-
-
-commmand opcache
-#!/usr/bin/env bash
-
-docker-compose exec --user root apache opcache
-
-
-
-
-command shell
-#!/usr/bin/env bash
-if [ -z "$1" ]
-  then
-    docker-compose exec --user www-data apache bash
-else
-    docker-compose exec --user $@ apache bash
-fi
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    else:
+        # Mensaje para indicar que el comando no se puede ejecutar
+        print("El comando docker esta incompleto")
+    exit(0)
 
 
 
 
+###################################################################################
+#                                                                                 #
+#                                 MAGENTO COMMANDS                                #
+#                                                                                 #
+###################################################################################
 
-command start
-#!/usr/bin/env bash
-docker-compose up -d && \
-version=$(git describe --tags $(git rev-list --tags --max-count=1))
-echo "
-===================== 🚀 Done 🚀 ===================
+if sys.argv[1] == "magento":
+    if len(sys.argv) == 2:
+        os.system("docker exec -it bizarro_apache_1 bash")
+        exit(0)
+    elif len(sys.argv) >= 3:
+        if sys.argv[2] == "composer":
+            os.system("docker exec -it bizarro_apache_1 composer install")
+            exit(0)
+        elif sys.argv[2] == "upgrade":
+            os.system("docker exec -it bizarro_apache_1 php bin/magento setup:upgrade")
+            exit(0)
+        elif sys.argv[2] == "cache":
+            print("Borrando Cahe ...")    
+            os.system("docker exec -it bizarro_apache_1 php bin/magento cache:clean")
+            print("Cambiando permisos ...")
+            os.system("docker exec -it bizarro_apache_1 chown -R www-data:www-data generated pub var")
+            print("Hecho.")
+            exit(0)
+        elif sys.argv[2] == "template-hints":
+            if sys.argv[3] == "enable":
+                os.system("docker exec -it bizarro_apache_1 php bin/magento dev:template-hints:enable")
+                exit(0)
+            else:
+                os.system("docker exec -it bizarro_apache_1 php bin/magento dev:template-hints:disable")
+                exit(0)
 
-      Created by Rafael Corrêa Gomes
-      v.$version
-      Access your new links:
 
-      🌎 Web server: http://localhost/
-      ⚙️ PHPMyAdmin: http://localhost:8080
-      ✉️ Local emails: http://localhost:8025
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    elif len(sys.argv) > 3:
+        # if sys.argv[2] == "build":
 
-===================== 🚀 Done 🚀 ==================="
-
-
-
-
-
-command stop
-#!/usr/bin/env bash
-docker-compose stop
-
-
-
-
-command xdebug
-#!/usr/bin/env bash
-
-docker-compose exec --user root apache xdebug
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    else:
+        # Mensaje para indicar que el comando no se puede ejecutar
+        print("El comando de magento esta incompleto")
+    exit(0)
