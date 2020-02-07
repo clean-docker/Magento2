@@ -145,7 +145,7 @@ if sys.argv[1] == "magento":
         elif sys.argv[2] == "create":
             if sys.argv[3] == "admin-user":
                 print(Fore.BLUE + "Creando Palomino admin ..." + Style.RESET_ALL)
-                os.system("docker-compose exec -u www-data apache php bin/magento admin:user:create --admin-user='palominoAdmin' --admin-password='Law200110513' --admin-email='palomino@wolfsellers.com' --admin-firstname='palomino' --admin-lastname='palomino'")
+                os.system("docker-compose exec -u www-data apache php bin/magento admin:user:create --admin-user='palomino' --admin-password='Law200110513' --admin-email='palomino@wolfsellers.com' --admin-firstname='palomino' --admin-lastname='palomino'")
             else:
                 print("No se encontro el commando a ejecutar.")
             exit(0)
