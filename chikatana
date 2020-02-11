@@ -88,7 +88,12 @@ if sys.argv[1] == "magento":
         ###########################################################################
 
         elif sys.argv[2] == "cache":
-            if sys.argv[3] == "status":
+            if len(sys.argv) == 3:
+                print(Fore.BLUE + "Clear Cahe ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento cache:clean")
+                print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+                exit(0)
+            elif sys.argv[3] == "status":
                 os.system("docker-compose exec -u www-data apache php bin/magento cache:status")
                 exit(0)
             elif sys.argv[3] == "enable":
@@ -104,7 +109,7 @@ if sys.argv[1] == "magento":
                 print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
                 exit(0)
             elif sys.argv[3] == "clear":
-                print(Fore.BLUE + "Borrando Cahe ..." + Style.RESET_ALL)
+                print(Fore.BLUE + "Clear Cahe ..." + Style.RESET_ALL)
                 os.system("docker-compose exec -u www-data apache php bin/magento cache:clean")
                 # print(Fore.BLUE + "Cambiando permisos ..." + Style.RESET_ALL)
                 # os.system("docker-compose exec -u www-data apache chown -R www-data:www-data generated pub var")
@@ -120,12 +125,17 @@ if sys.argv[1] == "magento":
         ###########################################################################
 
         elif sys.argv[2] == "template-hints":
-            if sys.argv[3] == "enable":
+            if len(sys.argv) == 4 and sys.argv[3] == "enable":
+                print(Fore.BLUE + "Enable template hints ..." + Style.RESET_ALL)
                 os.system("docker-compose exec -u www-data apache php bin/magento dev:template-hints:enable")
-                exit(0)
             else:
+                print(Fore.BLUE + "Disable template hints ..." + Style.RESET_ALL)
                 os.system("docker-compose exec -u www-data apache php bin/magento dev:template-hints:disable")
-                exit(0)
+
+            print(Fore.BLUE + "Clear Cahe ..." + Style.RESET_ALL)
+            os.system("docker-compose exec -u www-data apache php bin/magento cache:clean")
+            print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+            exit(0)
 
 
 
@@ -143,7 +153,7 @@ if sys.argv[1] == "magento":
 
 
         elif sys.argv[2] == "create":
-            if sys.argv[3] == "admin-user":
+            if  sys.argv[3] == "admin-user":
                 print(Fore.BLUE + "Creando Palomino admin ..." + Style.RESET_ALL)
                 os.system("docker-compose exec -u www-data apache php bin/magento admin:user:create --admin-user='palominoAdmin' --admin-password='Law200110513' --admin-email='palomino@wolfsellers.com' --admin-firstname='palomino' --admin-lastname='palomino'")
             else:
