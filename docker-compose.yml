@@ -1,95 +1,95 @@
 version: '2'
 services:
-  apache:
-    image: rafaelcgstz/magento2
-    # build: .
-    ports:
-      - "8081:80" # web
-      - "9001:9000" # xdebug
-      # - "35729:35729" # live reload
-    volumes:
-      - ./src:/var/www/html
-      - ~/.composer:/var/www/.composer
-      - ~/.npm:/var/www/.npm
-      - ~/.ssh:/root/.ssh
-      - ./env/magento/magento-vars.php:/app/magento-vars.php
-      - ./env/magento/php.ini:/usr/local/etc/php/php.ini
-      # - ~/.nvm:/var/www/.nvm
-    environment:
-      XDEBUG_CONFIG: "remote_host=localhost"
-      PHP_IDE_CONFIG: "serverName=Docker"
-    depends_on:
-      - db
-    links:
-      - db
-    networks:
-      - magento-network
+    apache:
+        image: palomino/magento:apache
+        # build: .
+        ports:
+            - "8081:80" # web
+            - "9001:9000" # xdebug
+            # - "35729:35729" # live reload
+        volumes:
+            - ./src:/var/www/html
+            - ~/.composer:/var/www/.composer
+            - ~/.npm:/var/www/.npm
+            - ~/.ssh:/root/.ssh
+            - ./env/magento/magento-vars.php:/app/magento-vars.php
+            - ./env/magento/php.ini:/usr/local/etc/php/php.ini
+            # - ~/.nvm:/var/www/.nvm
+        environment:
+            XDEBUG_CONFIG: "remote_host=ananda.ckt"
+            PHP_IDE_CONFIG: "serverName=Docker"
+        depends_on:
+            - db
+        links:
+            - db
+        networks:
+            - magento-network
 
-  db:
-    image: mariadb
-    ports:
-     - 3300:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=magento
-      - MYSQL_USER=magento
-      - MYSQL_PASSWORD=magento
-    volumes:
-      - dbdata:/var/lib/mysql
-    networks:
-      - magento-network
+    db:
+        image: mariadb
+        ports:
+         - 3300:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=magento
+            - MYSQL_USER=magento
+            - MYSQL_PASSWORD=magento
+        volumes:
+            - dbdata:/var/lib/mysql
+        networks:
+            - magento-network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-     - PMA_HOST=db
-     - PMA_USER=root
-     - PMA_PASSWORD=root
-     - MYSQL_ROOT_PASSWORD=root
-    ports:
-     - 8080:80
-    networks:
-      - magento-network
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+         - PMA_HOST=db
+         - PMA_USER=root
+         - PMA_PASSWORD=root
+         - MYSQL_ROOT_PASSWORD=root
+        ports:
+         - 8080:80
+        networks:
+            - magento-network
 
-  redis:
-    image: redis
-    ports:
-     - 6379
-    networks:
-      - magento-network
+    redis:
+        image: redis
+        ports:
+         - 6379
+        networks:
+            - magento-network
 
-  redis-session:
-    image: redis
-    ports:
-     - 6379
-    networks:
-      - magento-network
+    redis-session:
+        image: redis
+        ports:
+         - 6379
+        networks:
+            - magento-network
 
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - 1025:1025
-      - 8025:8025
-    networks:
-      - magento-network
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+        networks:
+            - magento-network
 
-  proxy:
-    image: nginx:1.15
-    ports:
-      - "80:80"
-    volumes:
-      - ./server/proxy/vhost:/etc/nginx/conf.d
-      - ./server/proxy/logs:/etc/nginx/logs
-    links:
-      - apache
-    networks:
-      - magento-network
-    restart: always
+    proxy:
+        image: nginx:1.15
+        ports:
+            - "80:80"
+        volumes:
+            - ./server/proxy/vhost:/etc/nginx/conf.d
+            - ./server/proxy/logs:/etc/nginx/logs
+        links:
+            - apache
+        networks:
+            - magento-network
+        restart: always
 
 networks:
-  magento-network:
-    driver: bridge
+    magento-network:
+        driver: bridge
 
 volumes:
-  dbdata:
-    driver: local
+    dbdata:
+        driver: local

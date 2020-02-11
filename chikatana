@@ -50,7 +50,7 @@ if sys.argv[1] == "docker":
     elif len(sys.argv) > 3:
         if sys.argv[2] == "magento":
             if sys.argv[3] == "build":
-                os.system("cd DockerFile && docker build --rm --no-cache -t rafaelcgstz/magento2 .")
+                os.system("cd Dockerfile/apache && docker build --rm --no-cache -t palomino/magento:apache .")
                 exit(0)
 
         # Mensaje para indicar que el comando no fue encontrado
