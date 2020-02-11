@@ -23,7 +23,7 @@ services:
     links:
       - db
     networks:
-      - ananda-network
+      - magento-network
 
   db:
     image: mariadb
@@ -37,7 +37,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - ananda-network
+      - magento-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -49,21 +49,21 @@ services:
     ports:
      - 8080:80
     networks:
-      - ananda-network
+      - magento-network
 
   redis:
     image: redis
     ports:
      - 6379
     networks:
-      - ananda-network
+      - magento-network
 
   redis-session:
     image: redis
     ports:
      - 6379
     networks:
-      - ananda-network
+      - magento-network
 
   mailhog:
     image: mailhog/mailhog
@@ -71,7 +71,7 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - ananda-network
+      - magento-network
 
   proxy:
     image: nginx:1.15
@@ -83,11 +83,11 @@ services:
     links:
       - apache
     networks:
-      - ananda-network
+      - magento-network
     restart: always
 
 networks:
-  ananda-network:
+  magento-network:
     driver: bridge
 
 volumes:
