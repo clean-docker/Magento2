@@ -103,11 +103,11 @@ RUN wget https://files.magerun.net/n98-magerun2.phar \
 
 # Configuring system
 
-ADD Dockerfile/apache/.docker/config/php.ini /usr/local/etc/php/php.ini
-ADD Dockerfile/apache/.docker/config/magento.conf /etc/apache2/sites-available/magento.conf
-ADD Dockerfile/apache/.docker/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
-COPY Dockerfile/apache/.docker/bin/* /usr/local/bin/
-COPY Dockerfile/apache/.docker/users/* /var/www/
+ADD .docker/config/php.ini /usr/local/etc/php/php.ini
+ADD .docker/config/magento.conf /etc/apache2/sites-available/magento.conf
+ADD .docker/config/custom-xdebug.ini /usr/local/etc/php/conf.d/custom-xdebug.ini
+COPY .docker/bin/* /usr/local/bin/
+COPY .docker/users/* /var/www/
 RUN chmod +x /usr/local/bin/*
 RUN ln -s /etc/apache2/sites-available/magento.conf /etc/apache2/sites-enabled/magento.conf
 
