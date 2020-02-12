@@ -152,6 +152,22 @@ if sys.argv[1] == "magento":
             exit(0)
 
 
+
+        ###########################################################################
+        #                             STYLES COMMANDS                             #
+        ###########################################################################
+
+        elif sys.argv[2] == "static-content":
+            print(Fore.BLUE + "Deploy static content ..." + Style.RESET_ALL)
+            os.system("docker-compose exec -u www-data apache php bin/magento setup:static-content:deploy es_MX -f")
+            print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+            exit(0)
+
+
+        ###########################################################################
+        #                             OTHERS COMMANDS                             #
+        ###########################################################################
+
         elif sys.argv[2] == "create":
             if  sys.argv[3] == "admin-user":
                 print(Fore.BLUE + "Creando Palomino admin ..." + Style.RESET_ALL)
