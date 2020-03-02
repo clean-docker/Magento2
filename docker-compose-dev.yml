@@ -2,7 +2,7 @@ version: "2"
 services:
   apache:
     volumes:
-      - <project_name>-sync:/var/www/html:nocopy
+      - lobsport-dev-sync:/var/www/html:nocopy
 volumes:
-  <project_name>-sync:
+  lobsport-dev-sync:
     external: true

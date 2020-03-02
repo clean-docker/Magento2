@@ -2,7 +2,7 @@ version: "2"
 options:
   verbose: true
 syncs:
-  <project_name>-sync:
+  lobsport-dev-sync:
     sync_userid: '1000'
     sync_strategy: 'native_osx'
     host_disk_mount_mode: 'cached'
