@@ -11,7 +11,6 @@ services:
       - ./src:/var/www/html
       - ~/.composer:/var/www/.composer
       - ~/.npm:/var/www/.npm
-      - ./apache2/log:/var/log/apache2
       # - ~/.nvm:/var/www/.nvm
     environment:
       XDEBUG_CONFIG: "remote_host=localhost"
@@ -21,7 +20,7 @@ services:
     links:
       - db
     networks:
-      - MAGENTO2.3-network
+      - <project_name>-network
 
   db:
     image: mariadb
@@ -35,7 +34,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - MAGENTO2.3-network
+      - <project_name>-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -47,21 +46,21 @@ services:
     ports:
      - 8080:80
     networks:
-      - MAGENTO2.3-network
+      - <project_name>-network
 
   redis:
     image: redis
     ports:
      - 6379
     networks:
-      - MAGENTO2.3-network
+      - <project_name>-network
 
   redis-session:
     image: redis
     ports:
      - 6379
     networks:
-      - MAGENTO2.3-network
+      - <project_name>-network
 
   mailhog:
     image: mailhog/mailhog
@@ -69,10 +68,10 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - MAGENTO2.3-network
+      - <project_name>-network
 
 networks:
-  MAGENTO2.3-network:
+  <project_name>-network:
     driver: bridge
 
 volumes:
