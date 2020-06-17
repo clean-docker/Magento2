@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+chmod -R 777 /var/www/
+# find /var/www/html/ -type f -exec chmod 644 {} \;      # 644 permission for files
+# find /var/www/html/ -type d -exec chmod 755 {} \;      # 755 permission for directory
+# if [ -d /var/www/html/var/ ]; then
+#   find /var/www/html/var/ -type d -exec chmod 777 {} \;  # 777 permission for var folder
+# fi
+# if [ -d /var/www/html/pub/ ]; then
+#   find /var/www/html/pub/ -type d -exec chmod 777 {} \;
+# fi
+# if [ -d /var/www/html/app/etc ]; then
+#   chmod 777 /var/www/html/app/etc
+#   chmod 644 /var/www/html/app/etc/*.xml
+# fi
+# chown -R :www-data /var/www/html/
+if [ -e "/var/www/html/bin/magento" ]; then
+  chmod u+x /var/www/html/bin/magento
+fi

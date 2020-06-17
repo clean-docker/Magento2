@@ -1,10 +1,30 @@
 version: '2'
 services:
+    pwa:
+        image: palomino/magento:pwa
+        ports:
+            - "8082:80" # web
+        volumes:
+            - ./pwa:/var/www/html
+            - ~/.composer:/var/www/.composer
+            - ~/.npm:/var/www/.npm
+            - ~/.ssh:/root/.ssh
+        environment:
+            XDEBUG_CONFIG: "remote_host=ananda.ckt"
+            PHP_IDE_CONFIG: "serverName=Docker"
+        depends_on:
+            - db
+        links:
+            - db
+        networks:
+            - magento-network
+
     apache:
         image: palomino/magento:apache
         # build: .
         ports:
             - "8081:80" # web
+            - "443:443"
             - "9001:9000" # xdebug
             # - "35729:35729" # live reload
         volumes:
@@ -12,6 +32,7 @@ services:
             - ~/.composer:/var/www/.composer
             - ~/.npm:/var/www/.npm
             - ~/.ssh:/root/.ssh
+            - ./server/proxy/ssl:/etc/apache2/ssl
             - ./env/magento/magento-vars.php:/app/magento-vars.php
             - ./env/magento/php.ini:/usr/local/etc/php/php.ini
             # - ~/.nvm:/var/www/.nvm

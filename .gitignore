@@ -5,3 +5,4 @@ src
 db
 server/proxy/logs/
 src/index.php
+server/proxy/ssl/
