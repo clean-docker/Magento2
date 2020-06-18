@@ -3,19 +3,35 @@ upstream ananda.ckt {
 }
 
 server {
+
     listen 80;
     listen [::]:80;
+    listen 443;
+
+    if ($scheme = http) {
+        return 301 https://$server_name$request_uri;
+    }
 
     server_name ananda.ckt;
 
     access_log /etc/nginx/logs/ananda.ckt.access.log;
     error_log /etc/nginx/logs/ananda.ckt.error.log;
 
+    # Enable SSL
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/ssl.crt;
+    ssl_certificate_key /etc/nginx/ssl/ssl.key;
+    ssl_session_timeout 10m;
+    # ssl_dhparam /etc/nginx/ssl/cert.pem;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+    ssl_prefer_server_ciphers on;
+
     gzip_types text/plain text/css application/json application/x-javascript
                text/xml application/xml application/xml+rss text/javascript;
 
     location / {
-        proxy_pass http://ananda.ckt/;
+        proxy_pass https://ananda.ckt/;
         proxy_redirect     off;
         proxy_set_header   Host $host;
         proxy_set_header   X-Real-IP $remote_addr;

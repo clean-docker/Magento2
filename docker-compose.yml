@@ -23,7 +23,7 @@ services:
         image: palomino/magento:apache
         # build: .
         ports:
-            - "8081:80" # web
+            - "80:80" # web
             - "443:443"
             - "9001:9000" # xdebug
             # - "35729:35729" # live reload
@@ -33,6 +33,8 @@ services:
             - ~/.npm:/var/www/.npm
             - ~/.ssh:/root/.ssh
             - ./server/proxy/ssl:/etc/apache2/ssl
+            - ./server/proxy/vhost:/etc/apache2/sites-enabled
+            - ./server/proxy/logs:/var/www/ananda.ckt/logs
             - ./env/magento/magento-vars.php:/app/magento-vars.php
             - ./env/magento/php.ini:/usr/local/etc/php/php.ini
             # - ~/.nvm:/var/www/.nvm
@@ -93,19 +95,6 @@ services:
             - 8025:8025
         networks:
             - magento-network
-
-    proxy:
-        image: nginx:1.15
-        ports:
-            - "80:80"
-        volumes:
-            - ./server/proxy/vhost:/etc/nginx/conf.d
-            - ./server/proxy/logs:/etc/nginx/logs
-        links:
-            - apache
-        networks:
-            - magento-network
-        restart: always
 
 networks:
     magento-network:

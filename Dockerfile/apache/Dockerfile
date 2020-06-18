@@ -121,7 +121,8 @@ RUN chmod 777 -Rf /var/www /var/www/.* \
 	&& usermod -u 1000 www-data \
 	&& chsh -s /bin/bash www-data\
 	&& a2enmod rewrite \
-	&& a2enmod headers
+	&& a2enmod headers \
+    && a2enmod ssl
 
 VOLUME /var/www/html
 WORKDIR /var/www/html
