@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+sudo service apache2 stop
 docker-compose up -d && \
 version=$(git describe --tags $(git rev-list --tags --max-count=1))
 echo "
