@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.2-apache
 
 MAINTAINER Rafael Corrêa Gomes <rafaelcgstz@gmail.com>
 
@@ -22,7 +22,7 @@ RUN apt-get update \
 	apt-utils \
 	gnupg \
 	redis-tools \
-	mysql-client \
+	mariadb-client \
 	git \
 	vim \
 	wget \
@@ -33,6 +33,7 @@ RUN apt-get update \
 	tar \
 	cron \
 	bash-completion \
+	libsodium-dev \
 	&& apt-get clean
 
 # Install Magento Dependencies
@@ -45,11 +46,12 @@ RUN docker-php-ext-configure \
   	bcmath \
   	intl \
   	mbstring \
-  	mcrypt \
+  	# mcrypt \
   	pdo_mysql \
   	soap \
   	xsl \
-  	zip
+  	zip \
+	sockets
 
 # Install oAuth
 
@@ -63,7 +65,7 @@ RUN apt-get update \
 
 # Install Node, NVM, NPM and Grunt
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   	&& apt-get install -y nodejs build-essential \
     && curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh \
     && npm i -g grunt-cli yarn

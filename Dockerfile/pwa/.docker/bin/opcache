@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -s "/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini" ]; then
+   mv /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.iniOLD \
+   && /etc/init.d/apache2 force-reload \
+   && echo '========= OPCache was disabled ========='
+else
+  mv /usr/local/etc/php/conf.d/docker-php-ext-opcache.iniOLD /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini \
+  && /etc/init.d/apache2 force-reload \
+  && echo '========= OPCache was enabled ========='
+fi

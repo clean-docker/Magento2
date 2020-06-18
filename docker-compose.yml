@@ -1,79 +1,105 @@
 version: '2'
 services:
-  apache:
-    image: rafaelcgstz/magento2
-    # build: .
-    ports:
-      - "80:80" # web
-      - "9001:9000" # xdebug
-      # - "35729:35729" # live reload
-    volumes:
-      - ./src:/var/www/html
-      - ~/.composer:/var/www/.composer
-      - ~/.npm:/var/www/.npm
-      # - ~/.nvm:/var/www/.nvm
-    environment:
-      XDEBUG_CONFIG: "remote_host=localhost"
-      PHP_IDE_CONFIG: "serverName=Docker"
-    depends_on:
-      - db
-    links:
-      - db
-    networks:
-      - <project_name>-network
+    pwa:
+        image: palomino/magento:pwa
+        ports:
+            - "8082:80" # web
+        volumes:
+            - ./pwa:/var/www/html
+            - ~/.composer:/var/www/.composer
+            - ~/.npm:/var/www/.npm
+            - ~/.ssh:/root/.ssh
+        environment:
+            XDEBUG_CONFIG: "remote_host=ananda.ckt"
+            PHP_IDE_CONFIG: "serverName=Docker"
+        depends_on:
+            - db
+        links:
+            - db
+        networks:
+            - magento-network
 
-  db:
-    image: mariadb
-    ports:
-     - 3300:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=magento
-      - MYSQL_USER=magento
-      - MYSQL_PASSWORD=magento
-    volumes:
-      - dbdata:/var/lib/mysql
-    networks:
-      - <project_name>-network
+    apache:
+        image: palomino/magento:apache
+        # build: .
+        ports:
+            - "80:80" # web
+            - "443:443"
+            - "9001:9000" # xdebug
+            # - "35729:35729" # live reload
+        volumes:
+            - ./src:/var/www/html
+            - ~/.composer:/var/www/.composer
+            - ~/.npm:/var/www/.npm
+            - ~/.ssh:/root/.ssh
+            - ./server/proxy/ssl:/etc/apache2/ssl
+            - ./server/proxy/vhost:/etc/apache2/sites-enabled
+            - ./server/proxy/logs:/var/www/ananda.ckt/logs
+            - ./env/magento/magento-vars.php:/app/magento-vars.php
+            - ./env/magento/php.ini:/usr/local/etc/php/php.ini
+            # - ~/.nvm:/var/www/.nvm
+        environment:
+            XDEBUG_CONFIG: "remote_host=ananda.ckt"
+            PHP_IDE_CONFIG: "serverName=Docker"
+        depends_on:
+            - db
+        links:
+            - db
+        networks:
+            - magento-network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-     - PMA_HOST=db
-     - PMA_USER=root
-     - PMA_PASSWORD=root
-     - MYSQL_ROOT_PASSWORD=root
-    ports:
-     - 8080:80
-    networks:
-      - <project_name>-network
+    db:
+        image: mariadb
+        ports:
+         - 3300:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=magento
+            - MYSQL_USER=magento
+            - MYSQL_PASSWORD=magento
+        volumes:
+            - dbdata:/var/lib/mysql
+        networks:
+            - magento-network
 
-  redis:
-    image: redis
-    ports:
-     - 6379
-    networks:
-      - <project_name>-network
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+         - PMA_HOST=db
+         - PMA_USER=root
+         - PMA_PASSWORD=root
+         - MYSQL_ROOT_PASSWORD=root
+        ports:
+         - 8080:80
+        networks:
+            - magento-network
 
-  redis-session:
-    image: redis
-    ports:
-     - 6379
-    networks:
-      - <project_name>-network
+    redis:
+        image: redis
+        ports:
+         - 6379
+        networks:
+            - magento-network
 
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - 1025:1025
-      - 8025:8025
-    networks:
-      - <project_name>-network
+    redis-session:
+        image: redis
+        ports:
+         - 6379
+        networks:
+            - magento-network
+
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+        networks:
+            - magento-network
 
 networks:
-  <project_name>-network:
-    driver: bridge
+    magento-network:
+        driver: bridge
 
 volumes:
-  dbdata:
-    driver: local
+    dbdata:
+        driver: local

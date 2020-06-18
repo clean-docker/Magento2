@@ -1,4 +1,8 @@
 /src/*
 .DS_Store
 /.idea
-/docker-compose.yml
+src
+db
+server/proxy/logs/
+src/index.php
+server/proxy/ssl/

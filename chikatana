@@ -1,0 +1,190 @@
+#!/usr/bin/python
+import sys
+import os
+import colorama
+from colorama import Fore, Style
+
+if sys.argv[0] != "./chikatana":
+    print("Comando no valido.")
+    exit(0)
+
+def printHelp():
+    print("Chikatana Command Line:")
+
+if len(sys.argv) == 1:
+    printHelp()
+    exit(0)
+
+if sys.argv[1] == "init":
+    os.system("docker-compose up -d")
+    exit(0)
+
+if sys.argv[1] == "up":
+    os.system("docker-compose up -d")
+    exit(0)
+
+if sys.argv[1] == "down":
+    os.system("docker-compose down")
+    exit(0)
+
+if sys.argv[1] == "restart":
+    os.system("docker-compose down && docker-compose up -d")
+    exit(0)
+
+
+
+###################################################################################
+#                                                                                 #
+#                                 DOCKER COMMANDS                                 #
+#                                                                                 #
+###################################################################################
+
+if sys.argv[1] == "docker":
+    if len(sys.argv) == 3:
+        if sys.argv[2] == "ps":
+            os.system("docker-compose ps")
+            exit(0)
+
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    elif len(sys.argv) > 3:
+        if sys.argv[2] == "magento":
+            if sys.argv[3] == "build":
+                os.system("cd Dockerfile/apache && docker build --rm --no-cache -t palomino/magento:apache .")
+                exit(0)
+
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    else:
+        # Mensaje para indicar que el comando no se puede ejecutar
+        print("El comando docker esta incompleto")
+    exit(0)
+
+
+
+
+###################################################################################
+#                                                                                 #
+#                                 MAGENTO COMMANDS                                #
+#                                                                                 #
+###################################################################################
+
+if sys.argv[1] == "magento":
+    if len(sys.argv) == 2:
+        os.system("docker-compose exec -u www-data apache bash")
+        exit(0)
+    elif len(sys.argv) >= 3:
+        if sys.argv[2] == "composer":
+            os.system("docker-compose exec -u www-data apache composer install")
+            exit(0)
+        elif sys.argv[2] == "upgrade":
+            os.system("docker-compose exec -u www-data apache php bin/magento setup:upgrade")
+            exit(0)
+
+
+
+        ###########################################################################
+        #                             CACHE COMMANDS                              #
+        ###########################################################################
+
+        elif sys.argv[2] == "cache":
+            if len(sys.argv) == 3:
+                print(Fore.BLUE + "Clear Cahe ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento cache:clean")
+                print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+                exit(0)
+            elif sys.argv[3] == "status":
+                os.system("docker-compose exec -u www-data apache php bin/magento cache:status")
+                exit(0)
+            elif sys.argv[3] == "enable":
+                print(Fore.BLUE + "Enable Cahe ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento cache:enable")
+                print(Fore.BLUE + "Disable Cahe Modules ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento cache:disable collections eav full_page layout")
+                print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+                exit(0)
+            elif sys.argv[3] == "disable":
+                print(Fore.BLUE + "Disable Cahe ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento cache:disable")
+                print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+                exit(0)
+            elif sys.argv[3] == "clear":
+                print(Fore.BLUE + "Clear Cahe ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento cache:clean")
+                # print(Fore.BLUE + "Cambiando permisos ..." + Style.RESET_ALL)
+                # os.system("docker-compose exec -u www-data apache chown -R www-data:www-data generated pub var")
+                print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+                exit(0)
+            else:
+                print("El comando de magento esta incompleto")
+
+
+
+        ###########################################################################
+        #                         TEMPLATE HINTS COMMANDS                         #
+        ###########################################################################
+
+        elif sys.argv[2] == "template-hints":
+            if len(sys.argv) == 4 and sys.argv[3] == "enable":
+                print(Fore.BLUE + "Enable template hints ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento dev:template-hints:enable")
+            else:
+                print(Fore.BLUE + "Disable template hints ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento dev:template-hints:disable")
+
+            print(Fore.BLUE + "Clear Cahe ..." + Style.RESET_ALL)
+            os.system("docker-compose exec -u www-data apache php bin/magento cache:clean")
+            print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+            exit(0)
+
+
+
+        ###########################################################################
+        #                             STYLES COMMANDS                             #
+        ###########################################################################
+
+        elif sys.argv[2] == "styles":
+            print(Fore.BLUE + "Compilando Estilos ..." + Style.RESET_ALL)
+            os.system("docker-compose exec -u www-data apache grunt clean exec:biz less:biz;")
+            print(Fore.BLUE + "Borrando Cahe ..." + Style.RESET_ALL)
+            os.system("docker-compose exec -u www-data apache php bin/magento cache:clean")
+            print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+            exit(0)
+
+
+
+        ###########################################################################
+        #                             STYLES COMMANDS                             #
+        ###########################################################################
+
+        elif sys.argv[2] == "static-content":
+            print(Fore.BLUE + "Deploy static content ..." + Style.RESET_ALL)
+            os.system("docker-compose exec -u www-data apache php bin/magento setup:static-content:deploy es_MX -f")
+            print(Fore.GREEN + "Hecho." + Style.RESET_ALL)
+            exit(0)
+
+
+        ###########################################################################
+        #                             OTHERS COMMANDS                             #
+        ###########################################################################
+
+        elif sys.argv[2] == "create":
+            if  sys.argv[3] == "admin-user":
+                print(Fore.BLUE + "Creando Palomino admin ..." + Style.RESET_ALL)
+                os.system("docker-compose exec -u www-data apache php bin/magento admin:user:create --admin-user='palomino' --admin-password='Law200110513' --admin-email='palomino@wolfsellers.com' --admin-firstname='palomino' --admin-lastname='palomino'")
+            else:
+                print("No se encontro el commando a ejecutar.")
+            exit(0)
+
+
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    elif len(sys.argv) > 3:
+        # if sys.argv[2] == "build":
+
+        # Mensaje para indicar que el comando no fue encontrado
+        print("El comando docker no encontrado")
+    else:
+        # Mensaje para indicar que el comando no se puede ejecutar
+        print("El comando de magento esta incompleto")
+    exit(0)
